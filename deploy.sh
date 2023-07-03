@@ -7,7 +7,7 @@ npm run build
 git checkout gh-pages
 
 # 删除旧的构建文件
-# rm -rf *
+rm -rf *
 
 # 将构建生成的静态文件复制到当前目录
 cp -r docs/.vitepress/dist/* .
