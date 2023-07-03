@@ -10,7 +10,7 @@ git checkout gh-pages
 rm -rf *
 
 # 将构建生成的静态文件复制到当前目录
-cp -r .vitepress/dist/* .
+cp -r docs/.vitepress/dist/* .
 
 # 提交更改并推送到远程仓库
 git add .
