@@ -7,7 +7,7 @@ npm run build
 mkdir temp_deploy
 
 # 将构建生成的静态文件复制到临时目录
-cp -r .vitepress/dist/* temp_deploy
+cp -r docs/.vitepress/dist/* temp_deploy
 
 # 切换到 gh-pages 分支
 git checkout gh-pages
