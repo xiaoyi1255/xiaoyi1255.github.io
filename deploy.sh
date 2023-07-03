@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 构建 Vitepress 项目
-npm run build
+yarn run build
 
 # 切换到 gh-pages 分支
 git checkout gh-pages
