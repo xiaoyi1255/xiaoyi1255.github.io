@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 构建 Vitepress 项目
-npm run build
+yarn build
 
 # 创建一个临时目录用于保存构建生成的静态文件
 # mkdir temp_deploy
