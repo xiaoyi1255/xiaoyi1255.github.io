@@ -4,7 +4,7 @@
 npm run build
 
 # 创建一个临时目录用于保存构建生成的静态文件
-mkdir temp_deploy
+# mkdir temp_deploy
 
 # 将构建生成的静态文件复制到临时目录
 cp -r docs/.vitepress/dist/* temp_deploy
