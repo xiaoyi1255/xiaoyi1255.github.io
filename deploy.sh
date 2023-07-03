@@ -23,7 +23,7 @@ git checkout gh-pages
 cp -r temp_deploy/* .
 
 # 删除临时目录
-# rm -rf temp_deploy
+rm -rf temp_deploy
 
 # 提交更改并推送到远程仓库
 # git add .
