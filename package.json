@@ -1,16 +1,15 @@
 {
-  "name": "xiaoyi1255.github.io",
-  "version": "1.0.0",
+  "name": "y",
+  "version": "y",
+  "description": "y",
   "main": "index.js",
-  "repository": "https://github.com/xiaoyi1255/xiaoyi1255.github.io.git",
-  "author": "静ming <jming.tai@backgardon.com>",
   "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^1.0.0-alpha.63"
+  },
   "scripts": {
-    "dev": "vitepress dev docs",
+    "dev": "vitepress dev docs --port 3333",
     "build": "vitepress build docs",
     "serve": "vitepress serve docs"
-  },
-  "devDependencies": {
-    "vitepress": "^1.0.0-beta.3"
   }
 }

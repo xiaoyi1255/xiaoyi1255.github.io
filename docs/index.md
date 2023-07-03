@@ -20,13 +20,13 @@ features:
   - icon: 📝
     title: Focus on Your Content
     details: Effortlessly create beautiful documentation sites with just markdown.
-  - icon: 📝
+  - icon: 
       src: vite.svg
       width: 10
       height: 10
     title: Enjoy the Vite DX
     details: Instant server start, lightning fast hot updates, and leverage Vite ecosystem plugins.
-  - icon: 🚀
+  - icon: 
       src: vue.svg
       width: 10
       height: 10
