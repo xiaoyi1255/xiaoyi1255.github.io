@@ -26,9 +26,9 @@ cp -r temp_deploy/* .
 rm -rf temp_deploy
 
 # 提交更改并推送到远程仓库
-# git add .
-# git commit -m "Auto deploy"
-# git push origin gh-pages
+git add .
+git commit -m "Auto deploy"
+git push origin gh-pages
 
 # 切换回主分支
 # git checkout master
