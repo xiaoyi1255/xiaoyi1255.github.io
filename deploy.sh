@@ -17,3 +17,11 @@ find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.gitignore' ! -name 'temp
 mv temp_deploy/* .
 
 rm -rf temp_deploy
+
+git add .
+git commit -m 'deploy'
+
+git ch gh-pages
+git merge temp
+
+git branch -D temp
