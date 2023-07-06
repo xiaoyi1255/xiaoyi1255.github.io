@@ -12,7 +12,7 @@ mkdir temp_deploy
 # 将构建生成的静态文件复制到临时目录
 cp -r docs/.vitepress/dist/* temp_deploy
 
-find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'temp_deploy' -exec rm -rf {} \;
+find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.gitignore' ! -name 'temp_deploy' -exec rm -rf {} \;
 
 mv temp_deploy/* .
 
