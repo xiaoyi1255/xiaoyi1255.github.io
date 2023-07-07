@@ -1,7 +1,7 @@
 {
-  "name": "y",
-  "version": "y",
-  "description": "y",
+  "name": "xiaoyi",
+  "version": "1.0.0",
+  "description": "基于vitepress搭建的个人",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "vitepress dev docs --port 3333",
     "build": "vitepress build docs",
-    "serve": "vitepress serve docs"
+    "serve": "vitepress serve docs",
+    "deploy": "sh deploy.sh"
   }
 }
