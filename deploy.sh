@@ -13,6 +13,9 @@ mkdir temp_deploy
 cp -r docs/.vitepress/dist/* temp_deploy
 
 git ch gh-pages
+
+find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.gitignore' ! -name 'temp_deploy' -exec rm -rf {} \;
+
 git merge temp
 
 find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.gitignore' ! -name 'temp_deploy' -exec rm -rf {} \;
