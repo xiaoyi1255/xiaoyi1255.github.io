@@ -27,7 +27,7 @@ theme: channing-cyan
 
 **Reflect** 提供了一系列与对象操作相关的方法，这些方法与 **Object** 上的方法功能类似，但有一些差别,简单来说就是可以通过**Object**和**实例**来操作、获取属性的方法，**Reflect** 都可以实现，优势就是使用它**不会报错**，**不会报错,不会报错,** 会返回 **布尔值**
 
-```
+```typescript
 const obj = {
 	name: '小易',
 	age: 20
@@ -77,7 +77,7 @@ Reflect.set(obj, 'age', '19') // true 等价于 obj.age = '19'
 
 **mutableHandlers** 是针对Object 和 Array 对象的拦截工具
 
-```
+```typescript
 // https://github1s.com/vuejs/core/blob/v3.2.47/packages/reactivity/src/baseHandlers.ts#L225-L231
 const get = /*#__PURE__*/ createGetter()
 const arrayInstrumentations = /*#__PURE__*/ createArrayInstrumentations()
@@ -94,7 +94,7 @@ export const mutableHandlers: ProxyHandler<object> = {
 ##### 1. createGetter
 **createGetter**是用于创建能够获取响应式对象的**getter**拦截器函数，实现了在**获取响应式数据**时，对该值进行**依赖追踪**功能，以便数据变化时进行视图更新。下面我们来看一下它具体怎么实现的吧😎
 
-```
+```typescript
 // https://github1s.com/vuejs/core/blob/v3.2.47/packages/reactivity/src/baseHandlers.ts#L94-L156
 // ReactiveFlags：
 // ● SKIP：该常量表示一个属性是否应该被跳过，不进行响应式处理。
@@ -198,7 +198,7 @@ function createGetter(isReadonly = false, shallow = false) {
 }
 ```
 
-```
+```typescript
 // https://github1s.com/vuejs/core/blob/v3.2.47/packages/reactivity/src/baseHandlers.ts#L53-L86
 // 数组处理  __PURE__ 纯净的
 const arrayInstrumentations = /*#__PURE__*/ createArrayInstrumentations()
@@ -236,7 +236,7 @@ function createArrayInstrumentations() {
 }
 ```
 
-```
+```typescript
 // https://github1s.com/vuejs/core/blob/v3.2.47/packages/reactivity/src/baseHandlers.ts#L37-L46
 const builtInSymbols = new Set(
   /*#__PURE__*/
@@ -276,7 +276,7 @@ const builtInSymbols = new Set(
 
 **createSetter**函数是一个用于创建能够拦截响应式对象修改属性的**setter**拦截器函数，能在修改响应式数据时，拦截这个操作并响应式更新。下面我们一起来瞅瞅它是如何实现的
 
-```
+```typescript
 // https://github1s.com/vuejs/core/blob/v3.2.47/packages/reactivity/src/baseHandlers.ts#L161-L200
 function createSetter(shallow = false) {
   return function set(
@@ -344,7 +344,7 @@ function createSetter(shallow = false) {
 7.  最后返回是设置结果
 ##### 3.deleteProperty
 **deleteProperty** 函数用于创建拦截响应式对象删除属性时，进行响应式更新
-```
+```typescript
 // https://github1s.com/vuejs/core/blob/v3.2.47/packages/reactivity/src/baseHandlers.ts#L202-L210
 function deleteProperty(target: object, key: string | symbol): boolean {
   const hadKey = hasOwn(target, key)
@@ -364,7 +364,7 @@ function deleteProperty(target: object, key: string | symbol): boolean {
 1.  删除成功 并且存在key 就通知更新
 1.  最后返回删除结果
 ##### 4.**has** 和 **ownKeys**
-```
+```typescript
 // https://github1s.com/vuejs/core/blob/v3.2.47/packages/reactivity/src/baseHandlers.ts#L212-L218
 function has(target: object, key: string | symbol): boolean {
   const result = Reflect.has(target, key)
@@ -384,7 +384,7 @@ function ownKeys(target: object): (string | symbol)[] {
 **ownKeys**是在**Object.getOwnPropertyNames**、**Object.getOwnPropertySymbols**、**Object.keys** 或者 **Reflect.ownKeys** 方法时被调用，用来获取目标对象自身所有属性的键值。
 #### 2、mutableCollectionHandlers
 是针对 WeakMap、WeakSet、Set、Map 集合对象的拦截工具
-```
+```typescript
 // https://github1s.com/vuejs/core/blob/v3.2.47/packages/reactivity/src/collectionHandlers.ts#L366-L368
 export const mutableCollectionHandlers: ProxyHandler<CollectionTypes> = {
   get: /*#__PURE__*/ createInstrumentationGetter(false, false)
@@ -431,7 +431,7 @@ function createInstrumentationGetter(isReadonly: boolean, shallow: boolean) {
 **createInstrumentationGetter** 函数是用于创建针对响应式对象的getter拦截器，我们会发现，它的函数体中没有看到依赖收集的相关操作。它是根据传入的参数相应的选择拦截方式和操作，它并直接进行依赖的收集，而是通过get才触发依赖的收集。它的拦截方式其实也挺多的像：has、 add、 set delete clear forEach 、get size 等等，感兴趣的小伙伴可以下来研究一下哦
 #### 辅助函数
 
-```
+```typescript
 // https://github1s.com/vuejs/core/blob/v3.2.47/packages/shared/src/index.ts
 export const isArray = Array.isArray
 export const isSymbol = (val: unknown): val is symbol => typeof val === 'symbol'
