@@ -18,13 +18,13 @@ hero:
 
 features:
   - icon: 📝
-    title: Focus on Your Content
+    title: test
     details: Effortlessly create beautiful documentation sites with just markdown.
   - icon: 
       src: vite.svg
       width: 10
       height: 10
-    title: Enjoy the Vite DX
+    title: test
     details: Instant server start, lightning fast hot updates, and leverage Vite ecosystem plugins.
   - icon: 
       src: vue.svg

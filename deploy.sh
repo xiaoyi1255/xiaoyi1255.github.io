@@ -4,6 +4,8 @@
 # 构建 Vitepress 项目
 git ch -b temp
 
+yarn
+
 yarn build
 
 # 创建一个临时目录用于保存构建生成的静态文件
@@ -28,6 +30,7 @@ git merge temp
 find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.gitignore' ! -name 'temp_deploy' -exec rm -rf {} \;
 
 mv temp_deploy/* .
+
 
 rm -rf temp_deploy
 
