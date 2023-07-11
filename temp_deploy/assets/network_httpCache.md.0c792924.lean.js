@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as a}from"./chunks/framework.0799945b.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"network/httpCache.md","lastUpdated":1689074794000}'),r={name:"network/httpCache.md"};function o(c,n,s,p,d,_){return a(),e("div")}const m=t(r,[["render",o]]);export{i as __pageData,m as default};
