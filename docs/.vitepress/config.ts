@@ -7,7 +7,7 @@ const pkg = require('vitepress/package.json')
 export default defineConfig({
   lang: 'en-US',
   title: 'VitePress',
-  description: 'Vite & Vue powered static site generator.',
+  description: '小易',
 
   lastUpdated: true,
   cleanUrls: true,
@@ -38,8 +38,8 @@ export default defineConfig({
     nav: nav(),
 
     sidebar: {
-      '/guide/': sidebarGuide(),
-      '/reference/': sidebarReference()
+      '/vue/': sidebarGuide(),
+      // '/reference/': sidebarReference()
     },
 
     // editLink: {
@@ -72,34 +72,38 @@ export default defineConfig({
 function nav() {
   return [
     { text: 'Guide', link: '/guide/test', activeMatch: '/guide/' },
-    // {
-    //   text: 'Reference',
-    //   link: '/reference/site-config',
-    //   activeMatch: '/reference/'
-    // },
-    // {
-    //   text: pkg.version,
-    //   items: [
-    //     {
-    //       text: 'Changelog',
-    //       link: 'https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md'
-    //     },
-    //     {
-    //       text: 'Contributing',
-    //       link: 'https://github.com/vuejs/vitepress/blob/main/.github/contributing.md'
-    //     }
-    //   ]
-    // }
   ]
 }
 
 function sidebarGuide() {
   return [
     {
-      text: 'Vue3 源码',
+      text: 'Vue3源码学习',
       collapsed: false,
       items: [
-        { text: 'Vue源码之拦截工具函数', link: '/guide/intercept' },
+        { text: 'ref+依赖收集+更新', link: '/vue/ref' },
+        { text: 'reactive', link: '/vue/reactive' },
+        { text: 'computed', link: '/vue/computed' },
+        { text: 'effect', link: '/vue/effect' },
+        { text: '拦截工具函数', link: '/vue/intercept' },
+        { text: 'watch & watchEffect', link: '/vue/watch' },
+      ]
+    },
+    {
+      text: '网络请求',
+      collapsed: false,
+      items: [
+        { text: 'http缓存', link: '/network/httpCache.md' },
+        { text: '接口数据缓存', link: '/network/dataCache.md' },
+        { text: 'service Worker缓存', link: '/network/serviceWorker.md' },
+        { text: 'axios 取消重复请求', link: '/network/axios.md' },
+      ]
+    },
+    {
+      text: '项目搭建',
+      collapsed: false,
+      items: [
+        { text: 'vitepress 搭建Blog', link: '/project/blog' },
       ]
     },
   ]

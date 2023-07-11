@@ -2,37 +2,35 @@
 layout: home
 
 title: VitePress
-titleTemplate: Vite & Vue Powered Static Site Generator
+titleTemplate: xiaoyi
 
 hero:
   name: VitePress
-  text: Vite & Vue Powered Static Site Generator
-  tagline: Simple, powerful, and fast. Meet the modern SSG framework you've always wanted.
+  text: 一个基于Vue和Vite的静态网站生成器
+  tagline: 主要纪录了个人学习的历程：包括Vue源码解析、网络请求、项目搭建等多个模块，当然也会持续更新
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/test
+      link: /vue/ref
     - theme: alt
       text: View on GitHub
       link: https://github.com/xiaoyi1255
 
 features:
   - icon: 📝
-    title: test
-    details: Effortlessly create beautiful documentation sites with just markdown.
-  - icon: 
-      src: vite.svg
-      width: 10
-      height: 10
-    title: test
-    details: Instant server start, lightning fast hot updates, and leverage Vite ecosystem plugins.
-  - icon: 
-      src: vue.svg
-      width: 10
-      height: 10
-    title: Customize with Vue
-    details: Use Vue syntax and components directly in markdown, or build custom themes with Vue components.
+    title: Vue3源码解析
+    details: 常用api[reactive、ref、computed、watch]
+    link: /vue/ref
+
+  - icon: 📝
+    title: 网络请求
+    details: http缓存、接口缓存、service worker、取消重复请求
+    link: /network/axios
+
+  - icon: 📝
+    title: 项目搭建
+    details: vitepress项目搭建、nuxt3项目搭建、node实现发短信
   - icon: 🚀
-    title: Ship Fast Sites
-    details: Fast initial load with static HTML, fast post-load navigation with client-side routing.
+    title: 记录点滴
+    details: 希望这不仅仅是用来记录bug的
 ---
