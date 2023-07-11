@@ -1,0 +1,1 @@
+import{_ as e,c as r,o as t}from"./chunks/framework.0799945b.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"network/serviceWorker.md","lastUpdated":1689074794000}'),o={name:"network/serviceWorker.md"};function a(s,c,n,i,p,d){return t(),r("div")}const f=e(o,[["render",a]]);export{m as __pageData,f as default};
