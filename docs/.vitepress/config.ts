@@ -6,8 +6,8 @@ const pkg = require('vitepress/package.json')
 
 export default defineConfig({
   lang: 'en-US',
-  title: 'VitePress',
-  description: '小易',
+  title: '小易',
+  description: '',
 
   lastUpdated: true,
   cleanUrls: true,
@@ -38,8 +38,7 @@ export default defineConfig({
     nav: nav(),
 
     sidebar: {
-      '/vue/': sidebarGuide(),
-      // '/reference/': sidebarReference()
+      '/guide/': sidebarGuide(),
     },
 
     // editLink: {
@@ -81,29 +80,29 @@ function sidebarGuide() {
       text: 'Vue3源码学习',
       collapsed: false,
       items: [
-        { text: 'ref+依赖收集+更新', link: '/vue/ref' },
-        { text: 'reactive', link: '/vue/reactive' },
-        { text: 'computed', link: '/vue/computed' },
-        { text: 'effect', link: '/vue/effect' },
-        { text: '拦截工具函数', link: '/vue/intercept' },
-        { text: 'watch & watchEffect', link: '/vue/watch' },
+        { text: 'ref+依赖收集+更新', link: '/guide/vue/ref' },
+        { text: 'reactive', link: '/guide/vue/reactive' },
+        { text: 'computed', link: '/guide/vue/computed' },
+        { text: 'effect', link: '/guide/vue/effect' },
+        { text: '拦截工具函数', link: '/guide/vue/intercept' },
+        { text: 'watch & watchEffect', link: '/guide/vue/watch' },
       ]
     },
     {
       text: '网络请求',
       collapsed: false,
       items: [
-        { text: 'http缓存', link: '/network/httpCache.md' },
-        { text: '接口数据缓存', link: '/network/dataCache.md' },
-        { text: 'service Worker缓存', link: '/network/serviceWorker.md' },
-        { text: 'axios 取消重复请求', link: '/network/axios.md' },
+        { text: 'http缓存', link: '/guide/network/httpCache.md' },
+        // { text: '接口数据缓存', link: '/network/dataCache.md' },
+        // { text: 'service Worker缓存', link: '/network/serviceWorker.md' },
+        // { text: 'axios 取消重复请求', link: '/network/axios.md' },
       ]
     },
     {
       text: '项目搭建',
       collapsed: false,
       items: [
-        { text: 'vitepress 搭建Blog', link: '/project/blog' },
+        // { text: 'vitepress 搭建Blog', link: '/project/blog' },
       ]
     },
   ]

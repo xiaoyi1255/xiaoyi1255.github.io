@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /vue/ref
+      link: /guide/vue/ref
     - theme: alt
       text: View on GitHub
       link: https://github.com/xiaoyi1255
@@ -20,12 +20,12 @@ features:
   - icon: 📝
     title: Vue3源码解析
     details: 常用api[reactive、ref、computed、watch]
-    link: /vue/ref
+    link: /guide/vue/ref
 
   - icon: 📝
     title: 网络请求
     details: http缓存、接口缓存、service worker、取消重复请求
-    link: /network/axios
+    link: /guide/network/httpCache
 
   - icon: 📝
     title: 项目搭建
