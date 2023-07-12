@@ -2,7 +2,6 @@ import { createRequire } from 'module'
 import { defineConfig } from 'vitepress'
 
 const require = createRequire(import.meta.url)
-const pkg = require('vitepress/package.json')
 
 export default defineConfig({
   lang: 'en-US',
@@ -93,88 +92,20 @@ function sidebarGuide() {
       collapsed: false,
       items: [
         { text: 'http缓存', link: '/guide/network/httpCache.md' },
-        // { text: '接口数据缓存', link: '/network/dataCache.md' },
-        // { text: 'service Worker缓存', link: '/network/serviceWorker.md' },
-        // { text: 'axios 取消重复请求', link: '/network/axios.md' },
+        { text: 'service Worker缓存', link: '/guide/network/serviceWorker.md' },
+        { text: 'axios 取消重复请求', link: '/guide/network/axios.md' },
+        { text: '接口数据缓存', link: '/guide/network/dataCache.md' },
       ]
     },
     {
       text: '项目搭建',
       collapsed: false,
       items: [
-        // { text: 'vitepress 搭建Blog', link: '/project/blog' },
+        { text: 'vitepress搭建技术文档、个人博客', link: '/guide/project/blog' },
+        { text: 'nuxt3 搭建项目', link: '/guide/project/nuxt3' },
+        { text: 'nodemailer实现邮件发送', link: '/guide/project/nodemailer' },
       ]
     },
   ]
 }
 
-function sidebarReference() {
-  return [
-    {
-      text: 'Reference',
-      items: [
-        { text: 'Site Config', link: '/reference/site-config' },
-        { text: 'Frontmatter Config', link: '/reference/frontmatter-config' },
-        { text: 'Runtime API', link: '/reference/runtime-api' },
-        { text: 'CLI', link: '/reference/cli' },
-        {
-          text: 'Default Theme',
-          items: [
-            {
-              text: 'Overview',
-              link: '/reference/default-theme-config'
-            },
-            {
-              text: 'Nav',
-              link: '/reference/default-theme-nav'
-            },
-            {
-              text: 'Sidebar',
-              link: '/reference/default-theme-sidebar'
-            },
-            {
-              text: 'Home Page',
-              link: '/reference/default-theme-home-page'
-            },
-            {
-              text: 'Footer',
-              link: '/reference/default-theme-footer'
-            },
-            {
-              text: 'Layout',
-              link: '/reference/default-theme-layout'
-            },
-            {
-              text: 'Badge',
-              link: '/reference/default-theme-badge'
-            },
-            {
-              text: 'Team Page',
-              link: '/reference/default-theme-team-page'
-            },
-            {
-              text: 'Prev / Next Links',
-              link: '/reference/default-theme-prev-next-links'
-            },
-            {
-              text: 'Edit Link',
-              link: '/reference/default-theme-edit-link'
-            },
-            {
-              text: 'Last Updated Timestamp',
-              link: '/reference/default-theme-last-updated'
-            },
-            {
-              text: 'Algolia Search',
-              link: '/reference/default-theme-search'
-            },
-            {
-              text: 'Carbon Ads',
-              link: '/reference/default-theme-carbon-ads'
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
