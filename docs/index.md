@@ -33,4 +33,6 @@ features:
   - icon: 🚀
     title: 记录点滴
     details: 希望这不仅仅是用来记录bug的
+    link: /guide/project/blog
+
 ---
