@@ -77,7 +77,7 @@ function sidebarGuide() {
   return [
     {
       text: 'Vue3源码学习',
-      collapsed: false,
+      collapsed: true, // true:目录自动展开 [pc端生效]
       items: [
         { text: 'ref+依赖收集+更新', link: '/guide/vue/ref' },
         { text: 'reactive', link: '/guide/vue/reactive' },
@@ -89,7 +89,7 @@ function sidebarGuide() {
     },
     {
       text: '网络请求',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: 'http缓存', link: '/guide/network/httpCache.md' },
         { text: 'service Worker缓存', link: '/guide/network/serviceWorker.md' },
@@ -99,7 +99,7 @@ function sidebarGuide() {
     },
     {
       text: '项目搭建',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: 'vitepress搭建技术文档、个人博客', link: '/guide/project/blog' },
         { text: 'nuxt3 搭建项目', link: '/guide/project/nuxt3' },
