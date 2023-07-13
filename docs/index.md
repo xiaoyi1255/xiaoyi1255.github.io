@@ -30,9 +30,12 @@ features:
   - icon: 📝
     title: 项目搭建
     details: vitepress项目搭建、nuxt3项目搭建、node实现发短信
+    link: /guide/project/blog
+
   - icon: 🚀
     title: 记录点滴
     details: 希望这不仅仅是用来记录bug的
-    link: /guide/project/blog
+    link: '/guide/test'
+
 
 ---
