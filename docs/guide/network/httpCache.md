@@ -1,6 +1,6 @@
 ---
-highlight: a11y-dark
-theme: juejin
+title: 网络
+titleTemplate: 前端缓存
 ---
 ## 前言 {#前言}
 

@@ -1,5 +1,6 @@
 ---
-theme: channing-cyan
+title: 项目
+titleTemplate: Nuxt3
 ---
 本文主要介绍了从零搭建一个nuxt3 的**SSR**项目：页面配置、CSS处理、路由使用、组件定义、自定义hooks、server、**middleware**
 

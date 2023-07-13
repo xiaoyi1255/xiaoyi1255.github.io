@@ -1,6 +1,6 @@
 ---
-theme: channing-cyan
-highlight: a11y-dark
+title: 项目
+titleTemplate: 邮件
 ---
 ## 前言 {#前言}
 

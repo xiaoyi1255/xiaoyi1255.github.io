@@ -106,6 +106,10 @@ function sidebarGuide() {
         { text: 'nodemailer实现邮件发送', link: '/guide/project/nodemailer' },
       ]
     },
+    {
+      text: '那些年踩过的坑',
+      link: '/guide/bug', activeMatch: '/guide/'
+    },
   ]
 }
 

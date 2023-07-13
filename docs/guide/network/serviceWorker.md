@@ -1,7 +1,7 @@
 ---
-theme: channing-cyan
+title: 网络
+titleTemplate: Service WorkerSW
 ---
-
 在 Web 应用中，为了提高应用的性能和用户体验，我们通常会使用缓存技术。其中，浏览器的缓存机制提供了浏览器级别的缓存，而 Service Worker 则提供了一种更高级别、更自由度的缓存机制。使用 Service Worker 进行缓存可以实现离线访问、更快的页面加载速度和更好的用户体验等。
 
 ## 前言 {#前言}

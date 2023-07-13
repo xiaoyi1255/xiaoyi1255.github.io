@@ -1,8 +1,8 @@
 ---
 layout: home
 
-title: VitePress
-titleTemplate: xiaoyi
+title: 小易
+titleTemplate: 文档
 
 hero:
   name: VitePress

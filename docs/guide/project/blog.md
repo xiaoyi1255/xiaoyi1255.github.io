@@ -1,4 +1,7 @@
-
+---
+title: 网络
+titleTemplate: Blog
+---
 ## 前言 {#前言}
 
 VitePress 是一个基于 Vue.js 和 Vite 构建的静态网站生成器，专注于快速搭建文档和技术博客！

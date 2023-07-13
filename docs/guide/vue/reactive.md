@@ -1,6 +1,6 @@
 ---
-theme: channing-cyan
-highlight: a11y-dark
+title: Vue3源码
+titleTemplate: Reactive
 ---
 ## 前言 {#前言}
 
