@@ -12,5 +12,8 @@
     "build": "vitepress build docs",
     "serve": "vitepress serve docs",
     "deploy": "sh deploy.sh"
+  },
+  "dependencies": {
+    "valine": "^1.5.1"
   }
 }

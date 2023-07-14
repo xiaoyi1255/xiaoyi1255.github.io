@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 
 const require = createRequire(import.meta.url)
 
+
 export default defineConfig({
   lang: 'en-US',
   title: '小易',
@@ -16,10 +17,7 @@ export default defineConfig({
     [
       'script',
       {
-        src: 'https://cdn.usefathom.com/script.js',
-        'data-site': 'AZBRSFGG',
-        'data-spa': 'auto',
-        defer: ''
+        src: 'https://unpkg.com/valine/dist/Valine.min.js'
       }
     ]
   ],
@@ -61,10 +59,10 @@ export default defineConfig({
     },
 
     // carbonAds: {
-    //   code: 'CEBDT27Y',
-    //   placement: 'vuejsorg'
+      //   code: 'CEBDT27Y',
+      //   placement: 'vuejsorg'
     // }
-  }
+  },
 })
 
 function nav() {
