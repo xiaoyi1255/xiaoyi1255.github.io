@@ -1,7 +1,6 @@
 <template>
     <div class="game-wrapper">
-      <div class="score">历史最高: {{ highScore }}</div>
-      <div class="score">当前得分: {{ score }}</div>
+      <div class="score">历史最高: {{ highScore }} ---- 当前得分: {{ score }}</div>
       <div class="game-container" tabindex="0">
         <div class="snake" v-for="(segment, index) in snake" :key="index" :style="getSegmentStyle(segment)">
         </div>
@@ -153,13 +152,32 @@
     border-right: 10px solid transparent;
     border-bottom: 20px solid green;
     }
-  @media screen and (max-width: 800px) and (min-width: 300px) {
+    @media only screen and (max-width: 600px){
     .game-container {
         position: relative;
-        width: 300px;
-        height: 300px;
+        width: 400px;
+        height: 400px;
         border: 1px solid #000;
     }
+    .controls-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 220px;
+    height: 220px;
+    position: relative;
+  }
+  
+  .control-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: none;
+    position: absolute;
+  }
   }
   </style>
   
