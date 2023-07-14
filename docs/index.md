@@ -22,17 +22,17 @@ features:
     details: 常用api[reactive、ref、computed、watch]
     link: /guide/vue/ref
 
-  - icon: 📝
+  - icon: 🐣
     title: 网络请求
     details: http缓存、接口缓存、service worker、取消重复请求
     link: /guide/network/httpCache
 
-  - icon: 📝
+  - icon: 🐰
     title: 项目搭建
     details: vitepress项目搭建、nuxt3项目搭建、node实现发短信
     link: /guide/project/blog
 
-  - icon: 🚀
+  - icon: 🐇
     title: 记录点滴
     details: 希望这不仅仅是用来记录bug的
     link: '/guide/test'
