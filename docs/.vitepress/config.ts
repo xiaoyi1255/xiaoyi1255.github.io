@@ -40,10 +40,10 @@ export default defineConfig({
       '/guide/': sidebarGuide(),
     },
 
-    // editLink: {
-    //   pattern: 'https://github.com/vuejs/vitepress/edit/main/docs/:path',
-    //   text: 'Edit this page on GitHub'
-    // },
+    editLink: {
+      pattern: 'https://github.com/xiaoyi1255/xiaoyi1255.github.io/edit/master/docs/:path',
+      text: 'Edit this page on GitHub'
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/xiaoyi1255' }
@@ -54,11 +54,11 @@ export default defineConfig({
     //   copyright: 'Copyright © 2019-present Evan You'
     // },
 
-    // algolia: {
-    //   appId: '8J64VVRP8K',
-    //   apiKey: 'a18e2f4cc5665f6602c5631fd868adfd',
-    //   indexName: 'vitepress'
-    // },
+    algolia: {
+      appId: 'IPEOGH904I',
+      apiKey: '7001393f64b263b1fc44c1094b263008',
+      indexName: 'xiaoyi1255io'
+    },
 
     // carbonAds: {
     //   code: 'CEBDT27Y',
@@ -102,6 +102,7 @@ function sidebarGuide() {
       collapsed: true,
       items: [
         { text: 'vitepress搭建技术文档、个人博客', link: '/guide/project/blog' },
+        { text: '给vitepress加上全局搜索', link: '/guide/project/algolia' },
         { text: 'nuxt3 搭建项目', link: '/guide/project/nuxt3' },
         { text: 'nodemailer实现邮件发送', link: '/guide/project/nodemailer' },
       ]
