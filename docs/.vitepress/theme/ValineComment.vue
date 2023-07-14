@@ -3,7 +3,7 @@
   <div class="page">
     <section class="page-edit">
       <div class="page-edit-read">
-        <span class="leancloud-visitors" data-flag-title="Your Article Title">
+        <span class="leancloud-visitors" :data-flag-title="pageTitle">
           <em class="post-meta-item-text">阅读量： </em>
           <i class="leancloud-visitors-count"></i>
         </span>
@@ -14,14 +14,15 @@
 </template>
 
 <script setup>
-import { watch, onMounted } from "vue";
+import { watch, onMounted, ref } from "vue";
 import { useRoute } from "vitepress";
 
 const route = useRoute();
-
+const pageTitle = ref('默认pageTitle')
 const initValine = () => {
   let path = location.origin + location.pathname;
   document.getElementsByClassName("leancloud-visitors")[0].id = path;
+  pageTitle.value = `${document.querySelector('.is-active .text')?.innerHTML}:(${location.pathname})`
   new Valine({
     el: "#vcomments",
     appId: "Iicq7kgu05xqkYFa5CpPO8sE-gzGzoHsz", // your appId
