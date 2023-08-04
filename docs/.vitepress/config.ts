@@ -36,6 +36,7 @@ export default defineConfig({
 
     sidebar: {
       '/guide/': sidebarGuide(),
+      // '/guide/flutter/': nav(),
     },
 
     editLink: {
@@ -68,6 +69,15 @@ export default defineConfig({
 function nav() {
   return [
     { text: 'Guide', link: '/guide/test', activeMatch: '/guide/' },
+    {
+      text: 'flutter',
+      collapsed: true, // true:目录自动展开 [pc端生效]
+      activeMatch: '/flutter/',
+      items: [
+        { text: '1.dart基础类型之数值', link: '/guide/flutter/1.基础类型之数值.md' },
+        { text: '2.dart基础类型之字符串', link: '/guide/flutter/2.基础类型之字符串.md' },
+      ]
+    },
   ]
 }
 
@@ -109,6 +119,16 @@ function sidebarGuide() {
       text: '那些年踩过的坑',
       link: '/guide/bug', activeMatch: '/guide/'
     },
+    {
+      text: 'flutter',
+      collapsed: true, // true:目录自动展开 [pc端生效]
+      activeMatch: '/flutter/',
+      items: [
+        { text: '1.dart基础类型之数值', link: '/guide/flutter/1.基础类型之数值.md' },
+        { text: '2.dart基础类型之字符串', link: '/guide/flutter/2.基础类型之字符串.md' },
+      ]
+    },
+
   ]
 }
 
