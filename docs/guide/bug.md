@@ -556,3 +556,21 @@ wtf? 难道是昨天断了3次电，自动重启 导致的？
 
 // hooks：存储自定义钩子脚本的目录，可以在特定的Git操作事件触发时执行脚本。
 ```
+
+## url判断是否包含某个子串
+```typescript
+const sceneObj = {}
+if (!url || !url.includes('http')) return sceneObj
+  let newUrl = url.toLowerCase()
+  // 广告存在
+  
+  const isNeedAd = store.state.model?.mediationAdList?.some((item:any) => {
+    if (newUrl.includes(item.scene)) { // 就是这里，判断子串，没有判空
+      sceneObj.scene = item.scene
+      return true
+    }
+  })
+```
+
+不要喷啦，我自己喷过几次啦！！！！
+我判断了url非空，，但是没有判断item.scene 真是服了，，大聪明
