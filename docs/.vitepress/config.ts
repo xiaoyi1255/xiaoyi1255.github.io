@@ -72,10 +72,9 @@ function nav() {
     {
       text: 'flutter',
       collapsed: true, // true:目录自动展开 [pc端生效]
-      activeMatch: '/flutter/',
       items: [
-        { text: '1.dart基础类型之数值', link: '/guide/flutter/1.基础类型之数值.md' },
-        { text: '2.dart基础类型之字符串', link: '/guide/flutter/2.基础类型之字符串.md' },
+        { text: 'dart基础类型之数值', link: '/guide/flutter/num' },
+        { text: 'dart基础类型之字符串', link: '/guide/flutter/string' },
       ]
     },
   ]
@@ -122,13 +121,11 @@ function sidebarGuide() {
     {
       text: 'flutter',
       collapsed: true, // true:目录自动展开 [pc端生效]
-      activeMatch: '/flutter/',
       items: [
-        { text: '1.dart基础类型之数值', link: '/guide/flutter/1.基础类型之数值.md' },
-        { text: '2.dart基础类型之字符串', link: '/guide/flutter/2.基础类型之字符串.md' },
+        { text: 'dart基础类型之数值', link: '/guide/flutter/num' },
+        { text: 'dart基础类型之字符串', link: '/guide/flutter/string' },
       ]
     },
-
   ]
 }
 
