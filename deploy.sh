@@ -27,6 +27,9 @@ git commit -m "deploy"
 echo "🎸 切换到部署分支 gh-pages"
 git ch gh-pages
 
+echo "🎸 先拉一下 远程最新代码"
+git pull
+
 echo "🎸 删除多余文件 仅保留 .git .gitignore"
 find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.gitignore' -exec rm -rf {} \;
 
