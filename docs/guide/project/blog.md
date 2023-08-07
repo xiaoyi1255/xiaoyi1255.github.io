@@ -273,6 +273,17 @@ yarn deploy
 恭喜你！到这里你就可以去github settings => pages 看了
 ![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e4c6044c768845f7a44094ae3b10fdbf~tplv-k3u1fbpfcp-watermark.image?)
 
+## 网络资源图片403解决 {#网络资源图片403解决}
+```typescript
+// docs/.vitepress/config.ts 
+export default defineConfig({
+  ...
+  head: [
+    ['meta', { name: 'referrer', content: 'no-referrer' }],
+  ],
+  ...
+})
+```
 
 ## 源码 {#源码}
 [xiaoyi1255](https://github.com/xiaoyi1255/xiaoyi1255.github.io)
