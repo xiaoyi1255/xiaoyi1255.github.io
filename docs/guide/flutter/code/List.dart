@@ -41,7 +41,7 @@ void List_prop() {
   print(mixedList[mixedList.length - 1]); // 5 数组的最后一项
   print(mixedList.isEmpty); // false 数组是否为空
   print(mixedList.isNotEmpty); // true 数组是否不为空
-  print(mixedList.firstOrNull); // 1 数组第一项，不存在返回null
+  // print(mixedList.firstOrNull); // 1 数组第一项，不存在返回null
 }
 
 void List_method() {
@@ -63,6 +63,8 @@ void List_method() {
   // 2.2 删除指定位置的元素
   list1.removeAt(1);
   print(list1); // [2, 33, 22] 删除指定索引的元素
+  // list1.removeAt(10); 索引越界会报错
+
   // 2.3 删除最后一个
   list1.removeLast(); // 删除最后一个
   print(list1); // [2, 33] 删除指定索引的元素
@@ -75,4 +77,15 @@ void List_method() {
   // 2.6 清空列表
   list1.clear(); // 等价于 list1.length = 0
   print(list1); // []
+
+  // 3. 删除元素
+  // 3.1 使用索引直接复制
+  List<String> fruits = ['apple', 'banana', 'orange'];
+  fruits[1] = 'grape'; // 将索引为 1 的元素修改为 'grape'
+  print(fruits); // [apple, grape, orange]
+
+  // 3.2 使用 replaceRange 方法：
+  fruits.replaceRange(1, 2, ['grape', 'kiwi']); // 从索引 1 开始，删除 1 个元素，然后插入 'grape' 和 'kiwi'
+  print(fruits); // [apple, grape, kiwi, orange]
+
 }
