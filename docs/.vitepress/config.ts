@@ -14,6 +14,7 @@ export default defineConfig({
 
   head: [
     ['meta', { name: 'theme-color', content: '#3c8772' }],
+    ['meta', { name: 'referrer', content: 'no-referrer' }],
     [
       'script',
       {
