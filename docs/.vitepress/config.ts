@@ -123,8 +123,9 @@ function sidebarGuide() {
       text: 'flutter',
       collapsed: true, // true:目录自动展开 [pc端生效]
       items: [
-        { text: 'dart基础类型之数值', link: '/guide/flutter/num' },
-        { text: 'dart基础类型之字符串', link: '/guide/flutter/string' },
+        { text: 'dart基础类型之num', link: '/guide/flutter/num' },
+        { text: 'dart基础类型之Sting', link: '/guide/flutter/string' },
+        { text: 'dart基础类型之List', link: '/guide/flutter/List' },
       ]
     },
   ]
