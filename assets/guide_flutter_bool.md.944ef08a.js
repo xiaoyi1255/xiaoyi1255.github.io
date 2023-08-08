@@ -1,1 +1,0 @@
-import{_ as e,o as t,c as o}from"./chunks/framework.634f3122.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"guide/flutter/bool.md","lastUpdated":1691407524000}'),a={name:"guide/flutter/bool.md"};function r(s,c,n,d,l,p){return t(),o("div")}const f=e(a,[["render",r]]);export{_ as __pageData,f as default};
