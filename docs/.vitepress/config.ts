@@ -125,7 +125,9 @@ function sidebarGuide() {
       items: [
         { text: 'dart基础类型之num', link: '/guide/flutter/num' },
         { text: 'dart基础类型之Sting', link: '/guide/flutter/string' },
-        { text: 'dart基础类型之List', link: '/guide/flutter/List' },
+        { text: 'dart类型之List', link: '/guide/flutter/List' },
+        { text: 'dart类型之Map', link: '/guide/flutter/Map' },
+        { text: 'dart类型之Set', link: '/guide/flutter/Set' },
       ]
     },
   ]
