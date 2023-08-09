@@ -91,3 +91,12 @@ print(goods); // {hat: 19, shoe: 99}
     return MapEntry(key, '===$value==='); // {name: ===xiaoyi===, age: ===18===}
   });
 ```
+
+## addEntries {#addEntries}
+* m1.addEntries(m2.entries)
+* 将另一个映射的键值对添加到当前映射中
+```dart 
+  Map<String, Object> m1 = {"name": 'xiaoyi', "age": 18};
+
+  m1.addEntries({'a': 2}.entries); // m1: {name: xiaoyi, age: 18, a: 2}
+```

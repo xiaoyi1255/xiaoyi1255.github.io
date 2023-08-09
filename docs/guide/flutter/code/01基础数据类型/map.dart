@@ -1,7 +1,7 @@
 void main() {
   // mapPro();
-  mapMethods();
-  // mapFor();
+  // mapMethods();
+  mapFor();
 }
 
 void mapPro() {
@@ -73,5 +73,8 @@ void mapFor() {
   Map<String, Object> m2 = m1.map((key, value) {
     return MapEntry(key, '===$value==='); // {name: ===xiaoyi===, age: ===18===}
   });
+
+  m1.addEntries({'a': 2}.entries); // m1: {name: xiaoyi, age: 18, a: 2}
+  print(m1);
   print(m2); // {name: ===xiaoyi===, age: ===18===}
 }
