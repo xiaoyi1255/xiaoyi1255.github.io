@@ -37,7 +37,7 @@ export default defineConfig({
 
     sidebar: {
       '/guide/': sidebarGuide(),
-      // '/guide/flutter/': nav(),
+      '/flutter/': sidebarFlutter(),
     },
 
     editLink: {
@@ -70,14 +70,7 @@ export default defineConfig({
 function nav() {
   return [
     { text: 'Guide', link: '/guide/test', activeMatch: '/guide/' },
-    {
-      text: 'flutter',
-      collapsed: true, // true:目录自动展开 [pc端生效]
-      items: [
-        { text: 'dart基础类型之数值', link: '/guide/flutter/num' },
-        { text: 'dart基础类型之字符串', link: '/guide/flutter/string' },
-      ]
-    },
+    ...sidebarFlutter(), // flutter
   ]
 }
 
@@ -119,17 +112,22 @@ function sidebarGuide() {
       text: '那些年踩过的坑',
       link: '/guide/bug', activeMatch: '/guide/'
     },
+  ]
+}
+
+function sidebarFlutter() {
+  return [
     {
-      text: 'flutter',
+      text: 'Dart基础语法',
       collapsed: true, // true:目录自动展开 [pc端生效]
       items: [
-        { text: 'dart基础类型之num', link: '/guide/flutter/num' },
-        { text: 'dart基础类型之Sting', link: '/guide/flutter/string' },
-        { text: 'dart类型之List', link: '/guide/flutter/List' },
-        { text: 'dart类型之Map', link: '/guide/flutter/Map' },
-        { text: 'dart类型之Set', link: '/guide/flutter/Set' },
+        { text: '1.dart基础类型之num', link: '/flutter/num' },
+        { text: '2.dart基础类型之Sting', link: '/flutter/string' },
+        { text: '3.dart类型之List', link: '/flutter/List' },
+        { text: '4.dart类型之Map', link: '/flutter/Map' },
+        { text: '5.dart类型之Set', link: '/flutter/Set' },
+        { text: '6.dart类型之Class', link: '/flutter/Class' },
       ]
     },
   ]
 }
-

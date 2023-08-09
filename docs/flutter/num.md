@@ -1,6 +1,6 @@
 ---
 title: Dart 语法
-titleTemplate: 基础数据类型
+titleTemplate: num
 ---				
 
 ## 前言 {#前言}
