@@ -61,3 +61,5 @@ git push
 
 echo "🎸 切回 master分支"
 git ch master
+
+yarn
