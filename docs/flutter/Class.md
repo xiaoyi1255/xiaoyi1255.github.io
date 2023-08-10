@@ -249,3 +249,28 @@ class Action extends Jump {
   void jumpNew() => print('222222');
 }
 ```
+
+## getter和setter {#getter和setter}
+* getter和setter就是对属性访问和设置进行拦截及自定义返回
+```dart
+void main() {
+  var ph1 = new Phone();
+  ph1._price; // 0
+  ph1.set(2);
+  ph1._price; // 4
+}
+
+class Phone {
+  int _price = 0;
+
+  get() {
+    return _price;
+  }
+
+  set(newVal) {
+    if (newVal != _price) {
+      _price = newVal;
+    }
+  }
+}
+```

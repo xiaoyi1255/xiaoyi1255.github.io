@@ -121,12 +121,13 @@ function sidebarFlutter() {
       text: 'Dart基础语法',
       collapsed: true, // true:目录自动展开 [pc端生效]
       items: [
-        { text: '1.dart基础类型之num', link: '/flutter/num' },
-        { text: '2.dart基础类型之Sting', link: '/flutter/string' },
-        { text: '3.dart类型之List', link: '/flutter/List' },
-        { text: '4.dart类型之Map', link: '/flutter/Map' },
-        { text: '5.dart类型之Set', link: '/flutter/Set' },
-        { text: '6.dart类型之Class', link: '/flutter/Class' },
+        { text: 'dart基础类型之num', link: '/flutter/num' },
+        { text: 'dart基础类型之Sting', link: '/flutter/string' },
+        { text: 'dart类型之List', link: '/flutter/List' },
+        { text: 'dart类型之Map', link: '/flutter/Map' },
+        { text: 'dart类型之Set', link: '/flutter/Set' },
+        { text: 'dart之Class', link: '/flutter/Class' },
+        { text: 'dart之Function', link: '/flutter/Function' },
       ]
     },
   ]

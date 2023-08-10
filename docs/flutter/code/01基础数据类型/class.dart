@@ -18,16 +18,23 @@ void main() {
   final name = student1.name; // "Alice"
   final major = student1.major; // 'Computer Science'
 
-  Action a1 = new Action(10, 20, '小易');
-  a1.jumpFn(); // I am Jump class
-  a1.actionFn(); // I am Action class
-  a1.height; // 10
-  a1.withs; // 20
-  a1.name; // 小易
-  a1.jumpNew(); // 222222
-  print(a1.height);
-  print(a1.withs);
-  print(a1.name); // 继承的
+  // Action a1 = new Action(10, 20, '小易');
+  // a1.jumpFn(); // I am Jump class
+  // a1.actionFn(); // I am Action class
+  // a1.height; // 10
+  // a1.withs; // 20
+  // a1.name; // 小易
+  // a1.jumpNew(); // 222222
+  // print(a1.height);
+  // print(a1.withs);
+  // print(a1.name); // 继承的
+
+  // var ph1 = new Phone();
+  // ph1._price; // 0
+  // print(ph1._price);
+  // ph1.set(2);
+  // ph1._price; // 2
+  // print(ph1._price);
 }
 
 // 抽象类
@@ -112,4 +119,20 @@ class Action extends Jump {
   // 重写父类 方法
   @override
   void jumpNew() => print('222222');
+}
+
+// getter setter
+
+class Phone {
+  int _price = 0;
+
+  get() {
+    return _price * 2;
+  }
+
+  set(newVal) {
+    if (newVal != _price) {
+      _price = newVal;
+    }
+  }
 }
