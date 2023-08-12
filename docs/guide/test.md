@@ -7,7 +7,7 @@ titleTemplate: 点滴纪录
 
 <script setup>
 // import Game from '../commponents/game.vue'
-import Game from '../commponents/Chat.vue'
+import Game from '../commponents/chat/Chat.vue'
 </script>
 
 <Game />

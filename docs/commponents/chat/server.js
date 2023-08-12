@@ -4,18 +4,13 @@ const express = require("express");
 const app = express();
 
 const roomMap = new Map()
-
-
 // 创建 HTTP 服务器
 const server = http.createServer(app);
-
 // 创建 WebSocket 服务器
 const wss = new WebSocket.Server({ server });
-
 // 监听 WebSocket 连接
 wss.on("connection", (socket) => {
   console.log("WebSocket 连接已建立");
-
   // 监听客户端发送的消息
   socket.on("message", (message) => {
     message = message.toString()

@@ -109,6 +109,10 @@ function sidebarGuide() {
       ]
     },
     {
+      text: 'websoket实现及时通信',
+      link: '/guide/websocket', activeMatch: '/guide/'
+    },
+    {
       text: '那些年踩过的坑',
       link: '/guide/bug', activeMatch: '/guide/'
     },
