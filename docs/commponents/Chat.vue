@@ -6,7 +6,7 @@
 <script lang="ts" setup>
 import { reactive, watch } from 'vue'
 import ChatRoom from './ChatRoom.vue'
-import CreateChat  from './createChat.vue'
+import CreateChat  from './CreateChat.vue'
 
 const state = reactive({
     name: '',
