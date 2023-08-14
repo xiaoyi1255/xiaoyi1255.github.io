@@ -33,7 +33,7 @@ const receivedMessages = ref([]);
 let socket = null;
 
 const connectWebSocket = () => {
-  const socketUrl = 'ws://localhost:3000'; // Replace with your WebSocket server URL
+  const socketUrl = 'ws://118.89.125.27:3000'; // Replace with your WebSocket server URL
   socket = new WebSocket(socketUrl);
 
   socket.onopen = () => {
