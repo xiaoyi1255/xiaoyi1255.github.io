@@ -8,7 +8,7 @@
     "vitepress": "^1.0.0-alpha.63"
   },
   "scripts": {
-    "dev": "vitepress dev docs --port 3333",
+    "dev": "vitepress dev docs --host 0.0.0.0 --port 3333",
     "build": "vitepress build docs",
     "serve": "vitepress serve docs",
     "deploy": "sh deploy.sh"
