@@ -11,6 +11,15 @@ const wss = new WebSocket.Server({ server });
 // 监听 WebSocket 连接
 wss.on("connection", (socket) => {
   console.log("WebSocket 连接已建立");
+  // 设置 CORS 头
+  const allowedOrigins = ['https://xiaoyi1255.github.io/', 'http://localhost:3333']; // 允许的域名
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    ws.on('headers', (headers) => {
+      headers.push(`Access-Control-Allow-Origin: ${origin}`);
+    });
+  }
+
   // 监听客户端发送的消息
   socket.on("message", (message) => {
     message = message.toString()
