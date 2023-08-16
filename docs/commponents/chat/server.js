@@ -77,7 +77,7 @@ server.on('upgrade', (request, socket, head) => {
 		case '/ws':
 			// 只允许 这个主机下的请求访问
 			if (
-				request.headers.origin.includes('localhost' || '118.89.125.27')
+				request.headers.origin.includes('118.89.125.27')
 			) {
 				console.log(
 					'request.headers.origin111',
