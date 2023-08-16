@@ -13,14 +13,24 @@ wsHandles() // websocket 监听器
 
 
 // 在 Express 中处理除了 /ws 路由以外的请求
-app.get('/getRoomInfo', (req, res) => {
-  res.send(JSON.stringify(roomMap));
+app.get('/getAllRoomInfo', (req, res) => {
+  	if(!roomMap.size) {
+		return res.send(JSON.stringify([]));
+	}
+	const roomInfo = []
+	roomMap.forEach((value,key) => {
+		roomInfo.push({[key]: value})
+	})
+  	res.send(JSON.stringify(roomInfo));
 });
 
-app.get('/ws', (req, res) => {
-  console.log('request.headers.origin333', request.headers.origin)
-  res.send('你没有权限访问！！！！');
-});
+// app.get('/getRoomInfoByRoomId', (req, res) => {
+// 	if(!roomMap.size)res.send(JSON.stringify({}));
+//   const roomInfo = roomMap.get(roomId)
+//   const res = JSON.stringify(roomInfo)
+//   console.log(res, '获取房间信息')
+// 	res.send(res);
+// });
 
 
 server.on('upgrade', (request, socket, head) => {
