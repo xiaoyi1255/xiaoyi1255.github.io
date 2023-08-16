@@ -32,7 +32,7 @@ type DataType = {
   type: string
 };
 
-import "ant-design-vue/dist/reset.css";
+// import "ant-design-vue/dist/reset.css";
 import { Button, Input, message, Modal } from "ant-design-vue";
 import { reactive } from "vue";
 
@@ -73,7 +73,7 @@ const handleOk = () => {
 </script>
   
 <style scoped lang="less">
-@import "ant-design-vue/dist/reset.css";
+// @import "ant-design-vue/dist/reset.css";
 .chat-room {
   max-width: 500px;
   margin: 0 auto;
