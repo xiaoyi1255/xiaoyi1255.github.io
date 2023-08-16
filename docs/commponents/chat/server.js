@@ -24,13 +24,12 @@ app.get('/getAllRoomInfo', (req, res) => {
   	res.send(JSON.stringify(roomInfo));
 });
 
-// app.get('/getRoomInfoByRoomId', (req, res) => {
-// 	if(!roomMap.size)res.send(JSON.stringify({}));
-//   const roomInfo = roomMap.get(roomId)
-//   const res = JSON.stringify(roomInfo)
-//   console.log(res, '获取房间信息')
-// 	res.send(res);
-// });
+app.get('/getRoomInfoByRoomId', (req, res) => {
+	const { roomId }= req.query
+	if(!roomMap.size || !roomMap.get(roomId || !roomId))res.send(JSON.stringify({}));
+  	const roomInfo = roomMap.get(roomId)
+	res.send(JSON.stringify(roomInfo));
+});
 
 
 server.on('upgrade', (request, socket, head) => {
