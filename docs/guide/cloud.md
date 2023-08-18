@@ -61,6 +61,7 @@ titleTemplate: 云服务器
 ![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eab3d41e5c9f4b44b32aec39dbbf9d63~tplv-k3u1fbpfcp-watermark.image?)
 
 ## 二、环境搭建及软件安装 {#二、环境搭建及软件安装}
+
 * 浏览器：下载安装应用
 * 忠于chrome 就先安装了个chrome浏览器
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1921162c77c5479c97d8ff6cdd95acc9~tplv-k3u1fbpfcp-watermark.image?)
@@ -99,9 +100,81 @@ yarn dev
 ```
 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cf1260a7ba3f45c89f6263cb54f5150b~tplv-k3u1fbpfcp-watermark.image?)
 
+* 项目跑起来没有问题，就可以进行部署啦！！！
+**先把服务停掉**
+
+### 202308/17 补充
+### 2. 部署
+**pm2** : 用来管理node进程的，可以监控在服务挂了自动重启，及内存超过配置的重启，记录node日志，查看服务使用的cpu情况等等
+
+* 1.先安装pm2
+```bash
+yarn add pm2
+```
+* 2.新建pm2.config.js 配置文件
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: 'xiaoyiApp', // 项目名称
+      port: '80', // 端口
+      exec_mode: 'cluster', // fork 和 cluster
+      script: './.output/server/index.mjs', // 服务的入口文件
+    },
+    {
+      name: 'ws',
+      port: '3000',
+      exec_mode: 'cluster',
+      script: './server.js'
+    }
+  ]
+}
+```
+* 3.package.json文件配置命令：启动和终止
+先把项目打包，然后使用pm2 同时吧nuxt项目和node项目跑起来
+```json
+ "scripts": {
+    "deploy": "nuxt build && pm2 start pm2.config.js",
+    "stop": "pm2 stop all && pm2 delete all"
+  },
+
+```
+* 4.直接跑： yarn deploy
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f2034c0c00ed4488af9a3b9fc8fa1471~tplv-k3u1fbpfcp-watermark.image?)
+
+* 5.跑起来就可以在浏览器中访问了   
 看到这里这就部署好项目了。
 
-### 2. 端口开放
+* 下面是pm2 常用的命令:
+```sh
+# 启动服务
+pm2 start app.js 
+
+# 重启服务
+pm2 restart app.js
+
+# 停止服务
+pm2 stop id
+
+# 删除该服务
+pm2 delete id
+
+# 停止所有pm2服务
+pm2 stop all
+
+# 删除所有pm2服务
+pm2 delete all
+
+# 查看日志
+pm2 log 
+
+# 查看服务使用资源凭空
+pm2 monit 
+```
+
+
+
+### 3. 端口开放
 * **端口开放端口开放端口开放！！！**终于的事情说三遍
 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/40e099b2bbbd42c391a6e31226750d77~tplv-k3u1fbpfcp-watermark.image?)
 我就是在这里踩的一个坑！！！！   
@@ -110,9 +183,9 @@ yarn dev
 **避坑**我根据网上的教程：window防火墙=>入行=>新建入行规则；配置半天
 人家在控制台明明就提供了可视化操作，我服了，(注意避坑朋友们！)
 
-### 3.可以公网访问了，公网的ip在实例那里看
+### 4.可以公网访问了，公网的ip在实例那里看
 
-[chat](http://118.89.125.27:3001/chat),这是一个多人聊天室。  
+[chat](http://118.89.125.27),这是一个多人聊天室。  
 聊天室的搭建在这里[即时通讯轻松实现：WebSocket、Vue 3 和 Node.js 缔造的多人实时交流平台](https://juejin.cn/post/7266037480750841896)
 
 ## 总结及注意点 {#总结及注意点}
