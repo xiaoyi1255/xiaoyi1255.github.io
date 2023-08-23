@@ -106,7 +106,8 @@ function sidebarGuide() {
         { text: '给vitepress加上全局搜索', link: '/guide/project/algolia' },
         { text: 'nuxt3 搭建项目', link: '/guide/project/nuxt3' },
         { text: 'nodemailer实现邮件发送', link: '/guide/project/nodemailer' },
-        { text: 'websoket实现及时通信',link: '/guide/websocket' },
+        { text: 'websoket实现即时通信',link: '/guide/websocket' },
+        { text: 'websoket实现即时通信之支持图片消息',link: '/guide/websocket2' },
         { text: '腾讯云服务器',link: '/guide/cloud' },
       ]
     },
