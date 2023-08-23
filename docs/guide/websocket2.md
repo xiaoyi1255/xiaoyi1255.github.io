@@ -364,3 +364,5 @@ router.post('/imgs', (req, res) => {
 在手机上到是成功了，但是。。。效果还是很不尽人意
 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dfab6394a5bd40bfaf0912ae52f52c38~tplv-k3u1fbpfcp-watermark.image?)
 
+源码位置：
+[xiaoyi1255](https://github.com/xiaoyi1255/nuxt3-temple/tree/dev)
