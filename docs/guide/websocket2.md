@@ -5,7 +5,9 @@ titleTemplate: vue
 
 ## 前言 {#前言}
 本文将介绍如何结合 WebSocket、Vue 3 和 Node 构建一个支持图片类型信息发送的多人聊天室。
+## 效果展示 {#效果展示}
 
+![图片信息.gif](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/94be7c4b3da242e98749a1b9771b35c8~tplv-k3u1fbpfcp-watermark.image?)
 ## 整体实现思路 {#整体实现思路}
 1. 前端使用了antdv 的upload 组件进行图片上传
 2. 服务端解决跨域
