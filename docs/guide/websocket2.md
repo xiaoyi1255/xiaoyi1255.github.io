@@ -4,19 +4,20 @@ titleTemplate: vue
 ---
 
 ## 前言 {#前言}
-本文将介绍如何结合 WebSocket、Vue 3 和 Node 构建一个支持图片类型信息发送的多人聊天室。
+本文将介绍如何结合 **WebSocket**、**Vue3**  和 **Node** 构建一个支持**图片类型**信息发送的多人聊天室。主要分为3个部分：整理实现思路、代码实现、踩坑分析。
 ## 效果展示 {#效果展示}
 
 ![图片信息.gif](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/94be7c4b3da242e98749a1b9771b35c8~tplv-k3u1fbpfcp-watermark.image?)
 ## 整体实现思路 {#整体实现思路}
-1. 前端使用了antdv 的upload 组件进行图片上传
-2. 服务端解决跨域
-3. 收到请求，把文件保存下来
-4. 服务端保存在静态托管的服务下
-5. 服务端并把文件访问的url返回
-6. 前端上传成功之后拿到url向websocket发送消息
-7. 服务端收到消息向各个客户端发消息
-8. 客户端收到消息，判断为图片，进行展示
+1. 前端进行**文件上传**
+2. 服务端**解决跨域cors**
+3. 服务端收到文件并保存
+4. 服务端保存在**静态托管**的文件夹下
+5. 服务端返回访问该文件url
+6. 前端收到url向websocket发送消息
+7. 服务端收到并**广播消息**
+8. 前端收到消息，判断为图片，进行展示，文件则点击下载
+9. 服务端对静态托管资源进行管理**避免过大超出容量**
 ## 一、前端部分 {#一、前端部分}
 
 ### 前端上传文件组件
@@ -214,6 +215,61 @@ const cors = require('cors'); // 导入 cors 中间件
 app.use(cors())
 ```
 
+### 定时清理资源
+**node-cron** https://www.npmjs.com/package/node-cron
+
+这个**大**项目，现在的人流量就是1,但是服务器磁盘安全措施还是需要做的。毕竟它只有**50G**的大小。
+这里我设置了个定时器每天凌晨来 看文件夹大小是否超过**2G** **,超过了**，就按照文件创建的时间，把最早的清理掉。别说我抠门，2G 够大啦，哈哈哈!!!
+先安装一下依赖
+```sh
+yarn add node-cron
+```
+
+```javascript
+const cron = require('node-cron');
+// 定时任务，每天的凌晨执行
+cron.schedule('*0 0 * * *', () => { // '*/10 * * * * * 10秒
+  const targetFolderPath = path.join(__dirname, '../public/uploads'); // 替换为目标文件夹的路径
+  try {
+    fs.readdir(targetFolderPath, (err, files) => {
+      if (err) {
+        console.error('Error:', err);
+        return;
+      }
+    
+      // 对文件按照创建时间进行排序
+      files.sort((a, b) => {
+        const filePathA = path.join(targetFolderPath, a);
+        const filePathB = path.join(targetFolderPath, b);
+    
+        const statsA = fs.statSync(filePathA);
+        const statsB = fs.statSync(filePathB);
+    
+        return statsA.ctime.getTime() - statsB.ctime.getTime();
+      });
+    // const files = fs.readdirSync(targetFolderPath);
+
+    files.forEach(file => {
+      const filePath = path.join(targetFolderPath, file);
+      try {
+        const stats = fs.statSync(filePath);
+        const fileSizeInBytes = stats.size;
+        const fileSizeInGB = fileSizeInBytes / (1024 * 1024 * 1024);
+        if (fileSizeInGB > 2) {
+          fs.unlinkSync(filePath); // 删除文件
+          console.log('File deleted:', filePath);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  });
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+```
+
 ## 踩坑点 {#踩坑点}
 ### 1.文件名乱码
 * 在服务端保存文件的时候，拿到的文件名含中文就会乱码
@@ -255,6 +311,9 @@ app.use('/static',express.static(path.join(__dirname,'./public'), {
 * 网上查了下，img 标签是不支持 heic 文件的，不支持？那只能强转类型了。
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9475260d113f418a8ceb8ec9cd91dcd8~tplv-k3u1fbpfcp-watermark.image?)
 
+**HEIC**是新出的一种图像格式，苹果的iOS 11更新后，iPhone 7及其后硬件，在拍摄照片时默认存储为HEIC格式。与JPG相比，它占用的空间更小，画质更加无损。查了下，有  
+[在线转换的工具！！](https://www.iloveimg.com/zh-cn/convert-to-jpg/heic-to-jpg)效果被截取了部分，整体质量还可以的。如下图：左图是转换出来的，右边是原图。
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ee856a0ef0ee48f398a8ac7e83285011~tplv-k3u1fbpfcp-watermark.image?)
 
 #### 方案1：在node端处理 heic-convert
 **heic-convert**
@@ -365,6 +424,9 @@ router.post('/imgs', (req, res) => {
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2cfcad0edc394f25ac323f199b4385a2~tplv-k3u1fbpfcp-watermark.image?)
 在手机上到是成功了，但是。。。效果还是很不尽人意
 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dfab6394a5bd40bfaf0912ae52f52c38~tplv-k3u1fbpfcp-watermark.image?)
+不要问！问就是没有找到好的处理方法！！！
 
-源码位置：
+**家人们有好的****heic转成png\jpg**的方案，还望**不吝赐教**哇！！
+
+## 源码位置 {#源码位置}
 [xiaoyi1255](https://github.com/xiaoyi1255/nuxt3-temple/tree/dev)
