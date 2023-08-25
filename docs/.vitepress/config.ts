@@ -113,7 +113,11 @@ function sidebarGuide() {
     },
     {
       text: '那些年踩过的坑',
-      link: '/guide/bug', activeMatch: '/guide/'
+      collapsed: true,
+      items: [
+        { text: '同学醒醒，bug来了', link: '/guide/bug/index'},
+        { text: 'ant-design-vue的message', link: '/guide/bug/message'},
+      ],
     },
   ]
 }
