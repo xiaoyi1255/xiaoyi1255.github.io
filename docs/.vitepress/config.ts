@@ -109,6 +109,7 @@ function sidebarGuide() {
         { text: 'websoket实现即时通信',link: '/guide/websocket' },
         { text: 'websoket实现即时通信之支持图片消息',link: '/guide/websocket2' },
         { text: '腾讯云服务器',link: '/guide/cloud' },
+        { text: 'redis基础使用',link: '/guide/project/redis' },
       ]
     },
     {
