@@ -106,10 +106,17 @@ function sidebarGuide() {
         { text: '给vitepress加上全局搜索', link: '/guide/project/algolia' },
         { text: 'nuxt3 搭建项目', link: '/guide/project/nuxt3' },
         { text: 'nodemailer实现邮件发送', link: '/guide/project/nodemailer' },
-        { text: 'websoket实现即时通信',link: '/guide/websocket' },
-        { text: 'websoket实现即时通信之支持图片消息',link: '/guide/websocket2' },
-        { text: '腾讯云服务器',link: '/guide/cloud' },
-        { text: 'redis基础使用',link: '/guide/project/redis' },
+        {
+          text: '构建高效的聊天室',
+          collapsed: true,
+          items: [
+            { text: '1.websocket实现基础通信',link: '/guide/chat/websocket' },
+            { text: '2.支持图片、视频消息',link: '/guide/chat/websocket2' },
+            { text: '3.消息转存redis',link: '/guide/chat/redis' },
+            { text: '4.实现大文件分片上传',link: '/guide/chat/uploadLargeFile' },
+            { text: '5.腾讯云服务器进行项目PM2部署',link: '/guide/chat/cloud' },
+          ]
+        },
       ]
     },
     {
