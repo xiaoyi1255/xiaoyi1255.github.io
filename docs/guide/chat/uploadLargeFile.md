@@ -4,7 +4,7 @@ titleTemplate: uploadFile
 ---
 
 ## 前言
-
+**大文件上传**：一次性上传会存在的问题：比较慢，中途退出或者网络延迟，容易出现超时，上传失败等问题。所以一般会选择 分片上传、断点续传来实现。线上体验地址及演示在下面，源码在末尾。需要的小伙伴自取。   
 1. 断点续传：
 断点续传是一种上传技术，允许在上传中断后继续上传，而无需从头开始。
 
@@ -17,8 +17,8 @@ titleTemplate: uploadFile
 **下面是效果**
 ![文件分片上传.gif](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7bcb7e28f07d4d428a878664aa963b11~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1884&h=882&s=2328507&e=gif&f=225&b=fefefe)
 
-**体验地址** [xiaoyi1255](http://118.89.125.27/)   
-需要创建或加入房间才能上传，家人们，下手轻点，，服务器一共就**40GB**
+**体验地址** [xiaoyi1255](http://118.89.125.27/upload)   
+家人们，下手轻点，，服务器一共就**40GB**, 可以把[项目荡下来耍](https://github.com/xiaoyi1255/nuxt3-temple)
 ## 整体实现思路
 **前端部分**：Vue3 + antdv + web Worker + spark-md5
 1. 用户在前端选择文件，使用 web Worker 进行文件分片并计算文件 hash 值。
@@ -63,6 +63,7 @@ const verifyFile = (md5: string, chunks: Blob[], file: File) => {
 ```
 
 ### 文件分片
+* 分片策略： 可以根据文件大小拆分成几等分，或者每片固定分片大小去切。这里我使用的后者
 * File 对象： File 对象表示用户选择的文件，它包含文件的元数据（例如文件名、大小、类型、日期等）。通过读取文件的二进制内容，可以生成 Blob 对象，进而对文件进行分片。
 * Blob 对象： Blob（Binary Large Object）是表示二进制数据的对象。它可以包含文件的一部分或全部内容。通过切割 Blob 对象，可以得到文件的分片
 
