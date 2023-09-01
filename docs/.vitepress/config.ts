@@ -120,6 +120,13 @@ function sidebarGuide() {
       ]
     },
     {
+      text: '工具集',
+      collapsed: true,
+      items: [
+        { text: '免费的内网穿透工具: ngrok', link: '/guide/utils/ngrok'},
+      ],
+    },
+    {
       text: '那些年踩过的坑',
       collapsed: true,
       items: [
