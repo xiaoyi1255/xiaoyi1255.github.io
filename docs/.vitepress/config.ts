@@ -113,8 +113,9 @@ function sidebarGuide() {
             { text: '1.websocket实现基础通信',link: '/guide/chat/websocket' },
             { text: '2.支持图片、视频消息',link: '/guide/chat/websocket2' },
             { text: '3.消息转存redis',link: '/guide/chat/redis' },
-            { text: '4.实现大文件分片上传',link: '/guide/chat/uploadLargeFile' },
-            { text: '5.腾讯云服务器进行项目PM2部署',link: '/guide/chat/cloud' },
+            { text: '4.在线状态管理：心跳机制',link: '/guide/chat/heartbeat' },
+            { text: '5.实现大文件分片上传',link: '/guide/chat/uploadLargeFile' },
+            { text: '6.腾讯云服务器进行项目PM2部署',link: '/guide/chat/cloud' },
           ]
         },
       ]
