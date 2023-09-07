@@ -269,7 +269,10 @@ const emojiHandle = (item) => {
 ```
 
 ## 总结
-- 整体实现起来挺简单的，没有才什么坑
+- 整体实现起来挺简单的，没有踩什么坑
 - 最近使用目前是存在变量的，刷新就没了（后期考虑引入角色，存入数据库）
+- 表情包组件简易版已经封装了好了，需要的小伙伴自取~
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/290a30b2db93464987b2e935f1de02b5~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1764&h=911&s=159500&e=png&b=262a32)
+
 ## 源码
 [xiaoyi1255](https://github.com/xiaoyi1255/nuxt3-temple)
