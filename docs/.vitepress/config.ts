@@ -120,6 +120,8 @@ function sidebarGuide() {
             { text: '8.支持emoji表情',link: '/guide/chat/emoji' },
           ]
         },
+        { text: '无感刷新Token', link: '/guide/chat/token' },
+
       ]
     },
     {
