@@ -121,6 +121,7 @@ function sidebarGuide() {
           ]
         },
         { text: '无感刷新Token', link: '/guide/chat/token' },
+        { text: 'vue项目代码混淆', link: '/guide/project/obfuscator' },
 
       ]
     },
