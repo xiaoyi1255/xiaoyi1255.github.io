@@ -4,6 +4,16 @@ titleTemplate: webpack-obfuscator
 ---
 
 > Vue项目中的代码混淆方案：webpack-obfuscator + javascript-obfuscator
+## 前言
+代码混淆(Obfuscated code)亦称花指令，是将计算机程序的代码，转换成一种功能上等价，但是**难于阅读和理解**的形式的**行为**。   
+
+将代码中的各种元素，如变量，函数，类的名字改写成无意义的名字。
+
+简单理解就是：代码逻辑不变，只是使代码**难以阅读**。  
+
+你可能会疑问？为什么需要进行混淆？它会**增加代码体积**、**增加调试成本**、还可能**损耗性能**...
+
+当你需要的时候自会知晓，嘿嘿~
 
 ## 安装依赖
 [webpack-obfuscator](https://github.com/javascript-obfuscator/webpack-obfuscator)    
@@ -104,3 +114,10 @@ module.exports = {
   unicodeEscapeSequence: false
 }
 ```
+
+## 结语：
+如果本文对你有收获，麻烦动动发财的小手，点点关注、点点赞！！！👻👻👻
+
+因为收藏===会了
+
+如果有不对、可以优化的地方欢迎在评论区指出，谢谢👾👾👾
