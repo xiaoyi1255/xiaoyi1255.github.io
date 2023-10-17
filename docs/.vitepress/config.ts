@@ -118,6 +118,7 @@ function sidebarGuide() {
             { text: '6.腾讯云服务器进行项目PM2部署',link: '/guide/chat/cloud' },
             { text: '7.微信订阅号实现登录',link: '/guide/chat/wechatLogin' },
             { text: '8.支持emoji表情',link: '/guide/chat/emoji' },
+            { text: '9.五子棋在线对战',link: '/guide/chat/fiveline' },
           ]
         },
         { text: '无感刷新Token', link: '/guide/chat/token' },
