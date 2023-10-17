@@ -126,6 +126,13 @@ function sidebarGuide() {
       ]
     },
     {
+      text: 'JS面试系列',
+      collapsed: true,
+      items: [
+        { text: '1、判断两数组内容相等', link: '/guide/js/arraryEqual'},
+      ],
+    },
+    {
       text: '工具集',
       collapsed: true,
       items: [
