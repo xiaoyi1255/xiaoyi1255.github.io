@@ -171,6 +171,106 @@ const array2 = ["banana", "apple", "banana", "cherry", '1', 1, '11', 11];
 areArraysContentEqual(array1, array2) // true
 
 ```
+### 4. 评论区大佬的方案（+1、-1）
+1. 只需要一个对象
+2. 遍历第一个数组就 +1
+3. 遍历第二个数组就 - 1
+4. 最后遍历对象，只要不是都是 0 就等于不匹配
+> 这样就不需要俩个对象了，而且第二个遍历的时候如果找不到这个值的话也可以直接退出了
+
+```js
+function areArraysContentEqual3(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  const countMap = new Map();
+
+  // 计数第一个数组的元素
+  for (const item of arr1) {
+    countMap.set(item, (countMap.get(item) || 0) + 1);
+  }
+
+  // 比较第二个数组与计数
+  for (const item of arr2) {
+    const val = countMap.get(item);
+    if (val === undefined || val <= 0) {
+      return false;
+    }
+    countMap.set(item, val - 1);
+  }
+
+  return true;
+}
+
+```
+### 5. 评论区大佬的方案（操作第二个数组）
+> 遍历第一个数组，在第二个数组找到就删除第二个数组中对应的元素，没有找到直接不等，最后再判断一下第二个数组的长度即可。实际使用中一般不直接操作原数组，浅复制一下就好
+```js
+function areArraysContentEqual2(arr1=[], arr2=[]) {
+  arr2 = [...arr2]
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  arr1.some(item => {
+    // 找到元素在第二个数组中的位置
+    const index = arr2.findIndex(item1 => {
+      if (isNaN(item) && isNaN(item1)) {
+        return true
+      }
+      return item ===item1
+    })
+    if (index !== -1 ) {
+      arr2.splice(index, 1)
+    }
+  })
+  return !arr2.length
+}
+
+```
+！！哇这里有个坑
+> NaN 判断的时候， 被被隐式转换
+> Number.isNaN 判断才是严格相等
+
+```js
+isNaN('11') // false
+isNaN('ccc') // true
+isNaN('a') // true
+isNaN(NaN) // true
+
+Number.isNaN('11') // false
+Number.isNaN('ccc') // false
+Number.isNaN('a') // false
+Number.isNaN(NaN) // true
+```
+### 优化后的第五点
+```js
+function areArraysContentEqual(arr1=[], arr2=[]) {
+  arr2 = [...arr2]
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  const compare = (item1, item2) => {
+    if (Number.isNaN(item1) && Number.isNaN(item2)) {
+      return true;
+    }
+    return item1 === item2;
+  };
+
+  arr1.some(item => {
+    // 找到元素在第二个数组中的位置
+    const index = arr2.findIndex(item1 => compare(item, item1))
+    if (index !== -1 ) {
+      arr2.splice(index, 1)
+    }
+  })
+  return !arr2.length
+}
+```
+
+
 ## 注意事项
 这个题需要注意：
 * 先判断长度，长度不等 必然不等
