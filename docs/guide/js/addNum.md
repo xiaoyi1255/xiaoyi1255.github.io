@@ -218,5 +218,96 @@ function add(str1='', str2='') {
 5. 处理遍历结束后的进位标识
 6. 数组拼接成字符串并返回结果
 
+## 两大数之差
 
+1. 还是先补0，保证位数一致
+2. 遍历字符串，从后往前，对位相减
+3. 如果小于0，就 +10，并设置进位标识为 -1 => 借位；同时存进新数组
+4. 处理遍历结束后的进位标识如果为 -1 说明计算结果为负数，需要补一个负号
+5. 数组拼接成字符串并返回结果
+
+```js
+function subtract(str1='', str2='') {
+  // const len = Math.max(str1.length, str2.length);
+  if (!str1) return str2 || "0";
+  if (!str2) return str1 || "0";
+  let carry = 0;
+  const result = [];
+  if (str1.length > str2.length) {
+    str2 = str2.padStart(str1.length, '0');
+  } else {
+    str1 = str1.padStart(str2.length, '0');
+  }
+  for (let i = str1.length-1; i >= 0; i--) {
+    const sum = str1[i] - str2[i] + carry;
+    if (sum>=0) {
+      carry = 0;
+      result.unshift(sum);
+    } else {
+      carry = -1;
+      result.unshift(sum + 10);
+    }
+  }
+  // 转成字符串并去掉开头的0
+  let res = result.join('').replace(/^0+/, '')
+  if (res === '') return 0
+  if (carry === -1) {
+    res = '-' + res;
+  }
+  return res;
+}
+
+const str1 = '1346457568762113';
+const str2 = '1313123243454551';
+subtract(str1, str2); // 33334325307562
+
+
+```
+## 两大数之积
+解析：
+1. 两数之积的长度 一定小于等于 两数的长度之和
+2. 声明一个数组，长度为两数之和
+3. 双重循环 ，从后往前，对位相乘，并把结果存进新数组
+4. 需要进位 则前一位 +1
+5. 数组转字符串 去除开头0
+
+```ts
+function multiply(num1: string, num2: string): string {
+   if (+num1 == 0 || +num2 == 0) {
+    return '0'
+   }
+   num1 = num1.replace(/^0*/g, '');
+   num2 = num2.replace(/^0*/g, '');
+   let len1 = num1.length;
+   let len2 = num2.length;
+   let res: number[] = new Array(len1 + len2).fill(0);
+   for (let i = num1.length-1; i >= 0; i--) {
+    for (let j = num2.length-1; j >=0; j--) {
+      let sum = Number(num1[i]) * Number(num2[j]) + res[i + j + 1];
+      res[i + j + 1] = sum % 10;
+      res[i + j] += Math.floor(sum / 10);
+    }
+   }
+   return res.join('').replace(/^0*/, '') || '0';
+}
+
+```
+```js
+// 两数之积 的结果长度一定是 <= 两数的长度之和
+/**
+* 1*1=1
+* 9*9=81
+* 99*99=9801
+* 1000*1000=1000000
+*/
+// 所以我们可以使用一个确定的数组来保存
+//  12 * 34 = [0,4,0,8] => 408
+/**
+* a[3] = 2*4 =8
+* a[2] = 4*1 + 3*2 =0  多1
+* a[1] = 1*3 +1 = 4
+* a[0] = 0
+* ==>> 408
+*/
+```
 
