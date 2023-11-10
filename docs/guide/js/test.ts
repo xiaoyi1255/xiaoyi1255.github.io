@@ -34,4 +34,5 @@ function multiply(num1: string, num2: string): string {
    return res.join('').replace(/^0*/, '') || '0';
 }
 
-console.log(multiply('0', '45'))
+// console.log(multiply('0', '45'))
+
