@@ -196,11 +196,14 @@ function areArraysContentEqual3(arr1, arr2) {
     const val = countMap.get(item);
     if (val === undefined || val <= 0) {
       return false;
+    } else if (val === 1) {
+      map.delete(item);
+    } else {
+      countMap.set(item, val - 1);
     }
-    countMap.set(item, val - 1);
   }
 
-  return true;
+  return map.size === 0;
 }
 
 ```
