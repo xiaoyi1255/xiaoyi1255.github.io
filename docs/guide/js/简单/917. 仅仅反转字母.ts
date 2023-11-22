@@ -13,7 +13,8 @@
 /**
  * 双指针 遇到非字母跳过,只有左遇到
  */
-function reverseOnlyLetters(s: string): string {
+
+function reverseOnlyLetters1(s: string): string {
   if(!/[a-zA-Z]/.test(s)) return s
   let left = 0;
   let right = s.length - 1;
@@ -39,6 +40,30 @@ function reverseOnlyLetters(s: string): string {
     } else {
       left++
       right--
+    }
+  }
+  return arr.join("");
+};
+
+function reverseOnlyLetters(s: string): string {
+  if(!/[a-zA-Z]/.test(s)) return s
+  let left = 0;
+  let right = s.length - 1;
+  const arr = s.split("");
+  const reg = /[a-zA-Z]/
+  while (left <= right) {
+    while (left <= right && !reg.test(arr[left])) {
+      left++;
+    }
+    while (left <= right && !reg.test(arr[right])) {
+      right--;
+    }
+    const ifLeft = reg.test(arr[left]);
+    const ifRight = reg.test(arr[right]);
+    if (ifLeft && ifRight) {
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+      left++
+      right--;
     }
   }
   return arr.join("");
