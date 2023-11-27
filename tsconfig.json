@@ -16,7 +16,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
-    "lib": ["dom", "esnext", "ES2023"],
     "types": ["vite/client", "jest"],
     "typeRoots": ["./node_modules/@types/", "./types"],
     "noImplicitAny": false,
@@ -26,6 +25,7 @@
   },
   "include": [
     "docs/**/*.ts",
+    "*",
   ],
   "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }
