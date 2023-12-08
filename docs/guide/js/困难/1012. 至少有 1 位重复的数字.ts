@@ -37,6 +37,9 @@ function numDupDigitsAtMostN(n: number): number {
 };
 
 console.log(numDupDigitsAtMostN(100));
+// console.time('test1')
+// console.log(numDupDigitsAtMostN(6358960));
+// console.timeEnd('test1')
 console.time('test')
 console.log(numDupDigitsAtMostN(6718458));
 console.timeEnd('test')
