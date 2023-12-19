@@ -1,14 +1,9 @@
-function moveZeroes(nums: number[]): void {
-  let len = nums.length
-  let arr: number[] = []
-  for (let i = 0; i < len; i++) {
-    if (nums[i]===0) {
-      nums.splice(i, 1)
-      arr.push(0)
-      if (nums[i+1] ===0) {
-        i--
-      }
-    }
+function fib(n: number): number {
+  if (n<2) return n
+  let fn_1 = 0
+  let fn_2 = 1
+  for (let i = 2; i <= n; i++) {
+    [fn_1, fn_2] = [fn_2, (fn_1 + fn_2) % Math.pow(10,9)+7]
   }
-  nums.push(...arr)
+  return fn_2 
 };
