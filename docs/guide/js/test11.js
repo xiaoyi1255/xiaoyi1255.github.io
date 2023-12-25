@@ -1,25 +1,15 @@
-function areArraysContentEqual3(arr1= [], arr2 = []) {
+function areArraysContentEqual(arr1 = [], arr2 = []) {
   if (arr1.length !== arr2.length) {
     return false;
   }
 
-  const countMap = new Map();
+  arr1 = [].concat(arr1, arr2);
+  
+  // 对数组中的元素进行按位异或运算
+  let result = combinedArray.reduce((acc, value) => acc ^ value, 0);
 
-  // 计数第一个数组的元素
-  for (const item of arr1) {
-    countMap.set(item, (countMap.get(item) || 0) + 1);
-  }
-
-  // 比较第二个数组与计数
-  for (const item of arr2) {
-    const val = countMap.get(item);
-    if (val === undefined || val <= 0) {
-      return false;
-    }
-    countMap.set(item, val - 1);
-  }
-
-  return true;
+  return result === 0;
 }
-console.log(areArraysContentEqual3([1, '1', 3, 4,1,undefined,NaN,NaN], [1, '1', 3, 4,1,undefined,NaN, NaN]));
+areArraysContentEqual([2, 1, '1', null, NaN], [1, 2, '1', null, NaN]); // true
+areArraysContentEqual([1], ['1']); // true 元素进行异或操作，有类型隐私转换
 
