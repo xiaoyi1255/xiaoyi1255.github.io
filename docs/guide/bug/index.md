@@ -574,3 +574,41 @@ if (!url || !url.includes('http')) return sceneObj
 
 不要喷啦，我自己喷过几次啦！！！！
 我判断了url非空，，但是没有判断item.scene 真是服了，，大聪明
+
+
+## 顶层awite 报错
+背景：admin后台 新增 功能
+项目：admin:  vue3+vben(antdv)
+时间：2023.12.21周四
+
+问题描述：下拉选择组件，选项从接口获取。然后本地是vite项目，本地开发是没有进行编译打包的。结果再上线的时候就报错了，
+```ts
+// 原来代码
+let res = await getXXXList({})
+
+
+// 改造后
+const getXXXListFn = async () => {
+  return await getXXXList({})
+}
+getXXXListFn()
+
+```
+
+## public 的js 问价报错
+
+背景：202312.25测试同学发现有个手机打开的活动页全部有问题
+
+项目：vue3,脚手架搭建的
+
+问题描述：通过app内部打开了活动webview，结果白屏。其它手机正常的，只有这一台异常。然后定位到，?.  可选链问题。。。我的真感谢！！！！！
+
+解决办法：
+
+* 把public 下的js问价，做降级处理，转成es5的写法，利用在线[babel转码工具](https://babeljs.io/)。
+
+问题复盘：
+* 1. 当时没有做降级处理，导致报错。
+* 2. 也忽略了public文件不参与打包与编译，也就没有做babel降级处理。
+
+
