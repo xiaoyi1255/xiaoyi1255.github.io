@@ -57,9 +57,9 @@ echo "🎸 删除 temp 分支"
 git branch -D temp
 
 echo "🎸 push 到 gh-pages"
-git push
+# git push
 
 echo "🎸 切回 master分支"
-git ch master
+# git ch master
 
-yarn
+# yarn
