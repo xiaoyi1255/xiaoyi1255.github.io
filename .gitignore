@@ -1,6 +1,0 @@
-node_modules
-
-# temp_deploy
-
-docs/.vitepress/dist
-docs/.vitepress/cache
