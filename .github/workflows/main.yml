@@ -29,5 +29,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PATH_TOKEN }}
           publish_dir: ./docs/.vitepress/dist
+          publish_branch: gh-pages # 推送到关联仓库的 gh-pages 分支
+          dotfiles: true  # 包括在提交中，即使被 .gitignore 文件忽略
