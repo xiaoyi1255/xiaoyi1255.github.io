@@ -1,1 +1,0 @@
-import{_ as s,o as n,c as a,Q as l}from"./chunks/framework.f4b23984.js";const C=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"guide/chat/mysql.md","lastUpdated":1703575129000}'),p={name:"guide/chat/mysql.md"},o=l("",8),e=[o];function t(c,r,y,F,D,i){return n(),a("div",null,e)}const m=s(p,[["render",t]]);export{C as __pageData,m as default};
