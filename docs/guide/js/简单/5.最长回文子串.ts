@@ -53,5 +53,7 @@ function longestPalindrome(s: string): string {
 // console.log(longestPalindrome("aac"));
 // console.log(longestPalindrome("ac"));
 // console.log(longestPalindrome("0"));
+
+
 console.log(longestPalindrome("vvvvvvvv"));
 console.log(longestPalindrome('xaabacxcabaaxcabaax')) // "xaabacxcabaax"
