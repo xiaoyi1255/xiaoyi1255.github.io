@@ -273,6 +273,27 @@ function areArraysContentEqual(arr1=[], arr2=[]) {
 }
 ```
 
+### 6. 评论区大佬的方案（计数+转字符串比较）
+1. 先判断数组长度
+2. 求两数组的并集并去重
+3. 分别遍历并集，在遍历中找到元素出现次数并转为字符串
+4. 比较两个字符串是否相等
+
+```js
+function isArrSame(arr1, arr2) {
+  if (arr1.length !== arr2.length) return false;
+  
+  const set = [...new Set([...arr1, ...arr2])]
+  function getCounts(arr) {
+    return set.map(item => arr.filter(ele => [ele].includes(item)).length).join('')
+  }
+  return getCounts(arr1) === getCounts(arr2)
+}
+```
+> 求数组并集，然后去去重，(解决顺序问题)
+> 统计元素出现的次数（解决重复元素问题）： arr.filter(ele => [ele].includes(item)).length
+> 
+2024.01.05更新
 
 ## 注意事项
 这个题需要注意：
