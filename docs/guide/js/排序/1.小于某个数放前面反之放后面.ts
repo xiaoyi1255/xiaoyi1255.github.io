@@ -43,17 +43,19 @@ function sort1(arr: number[], target: number): number[] {
 
 // 比target 大 放右边，比target 小方左边，相等不变 ==> target 在中间
 function sort(arr: number[], target: number): number[] {
-  let left = -1;
-  let right = arr.length;
-  for (let i = 0; i < arr.length; i++) {
-    const item = arr[i];
-    
-    if (item < target) {
-      patition(arr, ++left, i);
-    } else if (item > target) {
-      patition(arr, i, --right);
-      if (i === arr.length - 1)
-      i--
+  let left = 0;
+  let right = arr.length-1;
+  let idx = 0
+  while (idx <= right) {
+    if (arr[idx] < target) {
+      [arr[left], arr[idx]] = [arr[idx], arr[left]];
+      left++;
+      idx++;
+    } else if (arr[idx] > target) {
+      [arr[right], arr[idx]] = [arr[idx], arr[right]];
+      right--;
+    } else {
+      idx++;
     }
   }
   return arr;
