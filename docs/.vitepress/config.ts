@@ -123,6 +123,7 @@ function sidebarGuide() {
         },
         { text: '无感刷新Token', link: '/guide/chat/token' },
         { text: 'vue项目代码混淆', link: '/guide/project/obfuscator' },
+        { text: '仿抖音-视频流播放', link: '/guide/project/video' },
 
       ]
     },
