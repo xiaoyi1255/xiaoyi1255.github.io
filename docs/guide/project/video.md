@@ -5,6 +5,7 @@ titleTemplate: nestjs-vue3-ssr-video
 
 本文主要介绍了基于Vue3构建一个仿抖音的视频流页面。
 
+
 环境：node版本 v16.14.1
 
 ## 初始化项目
@@ -34,7 +35,7 @@ yarn start
   }
 }
 ```
-3. 轮播图（有change时间，通过change事件来控制播放，好实现）
+3. 轮播图（有change事件，通过change事件来控制播放，好实现）
 ```vue
 <template>
   <van-swipe ref="swiperRef" style="width: 100%;height: 100%; background-color: black;" :initial-swipe="0"
@@ -183,7 +184,7 @@ const changePlay = (type: number) => {
 import videojs from 'video.js'
 
 const player = reactive({
-  status: 'pause',
+  instance: null
 })
 
 player.instance = videojs(document.getElementById(id), {})
@@ -234,9 +235,10 @@ Uncaught ReferenceError: _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MO
 ## 优化方向
 - 视频尺寸问题（产品说就要撑满屏幕播放）
 - 视频播放卡顿问题（产品说要快一点）
-- 视频播放进度条问题
+- 视频播自动播放(静音)
+- 切后台暂停
 
-## 1.视频尺寸问题
+### 1.视频尺寸问题
 我们经常刷的抖音很多视频就是撑满屏幕的。
 
 产品：人家怎么做到的呢？像抖音、像油管
@@ -244,7 +246,7 @@ Uncaught ReferenceError: _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MO
 服务端： 我能给你返回视频原尺寸
 卑微前端：唯唯诺诺，，那那那行吧！！！
 
-### 解决思路：
+#### 解决思路：
 1. 获取视频原尺寸 （接口返回）
 2. 计算视频尺寸
     - 需要判断是否为竖屏视频 （宽高比 => 具体可以自己定）
@@ -321,13 +323,13 @@ const videoStyle = computed(() => {
 下面是效果图
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6cdc7af1425244acacd1b3ad284ce1dd~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=797&h=832&s=1479874&e=png&b=834765)
 
-## 2.卡顿问题
-背景：因为这个视频流的需求，最终是嵌套在webview中使用。然后app分给webview的内存是有限的，所以video标签过多就会出现卡顿。
-现象：测试那边刷到50多个视频的时候，就会变得很卡顿。60多甚至会卡死app
+### 2.卡顿问题
+- 背景：因为这个视频流的需求，最终是嵌套在webview中使用。然后app分给webview的内存是有限的，所以video标签过多就会出现卡顿。
+- 现象：测试那边刷到50多个视频的时候，就会变得很卡顿。60多甚至会卡死app
 
 当然，直接在chrome上，测试是100来个才会卡死。
 
-### 解决思路
+#### 解决思路
 1. 通过控制renderVideoList 来分批次渲染， allVideoList（接口拉取的所有视频）
     - 视频的拉取分页，一次12个；然后前端再维护一个渲染列表
     - 当用户滑到倒数第几个的时候，再往渲染列表里添加视频
@@ -412,7 +414,7 @@ const onLoad = async () => {
   try {
     const data = list.value.slice(i * 5, (i + 1) * 5)
     videoList.value = videoList.value.concat(data)
-    if ((i+1) *5 > list.value.length || list.value.length <= 4) {
+    if ((i+1) *5 > list.value.length) {
       emit('getVideoList', {}) // 拉取视频列表
     }
     i++
@@ -423,6 +425,54 @@ const onLoad = async () => {
 ```
 网络请求情况如下：
 ![playvideo4.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9c3f7847ded349a0ac1e7d7146009cb0~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1354&h=853&s=4124207&e=gif&f=68&b=eff5f7)
+
+### 3.视频自动播放
+因为浏览器的限制，不允许自动播放视频（带声音），所以只能静音播放。
+解决方案：静音播放，给用户一个解除静音的按钮。
+
+
+#### 注意点：video.play
+控制video的播放时，会返回一个promise
+```js
+let video = document.getElementById('video');
+const playPromise = video?.play()
+if (playPromise !== undefined) {
+  playPromise.then(_ => {
+    // 播放成功回调
+  }).catch(error => {
+    // 播放失败回调
+  });
+}
+```
+后面产品想直接不自动播放，等用户点击播放（带声音）
+
+
+### 4.切后台暂停
+1. 页面不可见时，暂停播放
+
+```js
+const visibilityFn = () => {
+  const player = proxy.$refs.videoItemRef[cureentIndex.value]?.player?.instance
+  if (document.visibilityState === 'visible') {
+    // player?.play()
+  } else {
+    player?.pause()
+  }
+}
+
+onMounted(() => {
+  onLoad()
+  document.addEventListener('visibilitychange', visibilityFn)
+})
+onUnmounted(() => {
+  document.removeEventListener('visibilitychange', visibilityFn)
+})
+
+```
+2. 切换到其它tab时，暂停播放
+这个需要原生进行通，切换至其它tab时，暂停播放
+
+
 ## 总结
 
 1. 上下滑动 => 使用swiper
@@ -431,6 +481,9 @@ const onLoad = async () => {
 4. 视频尺寸问题 => 通过宽高比 计算出 宽 再进行居中处理
 5. 视频卡顿问题 => 动态控制video标签个数
 这里其实可以使用一个虚拟dom去动态load下面的视频，然后当播放到当前视频时会走缓存就更快一点了。
+
+## 源码
+[github地址](https://github.com/xiaoyi1255/nestjs-vue3-ssr-video.git)
 
 
 
