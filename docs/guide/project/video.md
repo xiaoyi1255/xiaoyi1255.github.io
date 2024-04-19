@@ -1,15 +1,23 @@
 ---
 title: 仿抖音的视频流页面
 titleTemplate: nestjs-vue3-ssr-video
+highlight: a11y-light
+theme: channing-cyan
 ---
 
-本文主要介绍了基于Vue3构建一个仿抖音的视频流页面。
-
-
-环境：node版本 v16.14.1
-
-## 初始化项目
-基于srr脚手架快速搭建项目
+本文主主要从0到1基于Vue3构建一个视频流页面。
+功能：视频解析、基本播放、上下滑动切换、性能优化等
+框架：[SSR(nestjs)]([SSR](http://doc.ssr-fc.com/docs/features$started)) + Vue3 + Vant3
+环境：node版本：v16.20.0
+## 背景
+1. 视频解析：因为视频格式基于m3u8,本文选择的是videojs，可以考虑xgplay、HLS.js 等
+2. 视频流的实现：上下滑动、基本播放、切后台暂停
+3. 考虑性能问题：首屏加载、懒加载、预加载、动态销毁dom
+    - 首屏加载：初始化接口需要注册、拉取特别多信息，所以选择了SSR首屏更快一些
+    - 懒加载、预加载: 预热两个视频，分页渲染、拉取视频
+    - 动态销毁dom: 切换视频时，动态销毁前第n个视频的dom、再动态渲染后面的
+## 一、实现步骤
+基于**srr**脚手架快速搭建项目
 [SSR](http://doc.ssr-fc.com/docs/features$started)
 ```bash
 npm init ssr-app xxx-project
@@ -19,9 +27,9 @@ yarn start
 ```
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d32e9fb83a194f76ace6bf381b3e969b~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=968&h=372&s=433264&e=png&b=272c34)
 
-## 使用swiper实现上下切换
-1. 监听滚动事件，来切换（不好）
-2. css 的吸附属性 (需要配合IntersectionObserver使用，才能自动播放下一个视频)
+### swiper实现上下切换
+1. **监听滚动事件**，来切换（不好）
+2. **css吸附属性** (需要配合**IntersectionObserver**使用，才能自动播放下一个视频)
 ```css
 .videos {
   font-size: 0.14rem;
@@ -35,7 +43,7 @@ yarn start
   }
 }
 ```
-3. 轮播图（有change事件，通过change事件来控制播放，好实现）
+3. **swipe轮播图**（通过change事件来控制播放，好实现👍）
 ```vue
 <template>
   <van-swipe ref="swiperRef" style="width: 100%;height: 100%; background-color: black;" :initial-swipe="0"
@@ -46,17 +54,17 @@ yarn start
   </van-swipe>
 </template>
 ```
-看下效果=> 这样就实现了一个竖向的轮播图
+看下效果=> 这样就实现了一个**竖向的轮播图**
 ![swiper.gif](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f6838b484bd248eab1c88cf0d831a981~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=429&h=826&s=2873736&e=gif&f=50&b=dae7e6)
 
 
-## 使用videojs解析m3u8视频播放
-### 安装npm包
+### videojs解析m3u8视频播放
+1. 安装npm包
 videojs 
 ```bash
 yarn add videojs@8.11.0
 ```
-### vue中具体使用
+2. vue中具体使用
 ```vue
 <template>
   <div style="width: 100vw;height: 100vh;">
@@ -134,7 +142,7 @@ player.instance = videojs(videRef.value, videoOptions,function(){
 })
 </script>
 ```
-### 播放事件、双击点赞
+3. 播放事件、双击点赞
 因为后期会用到一个双击点赞的功能，所以这里使用一个空盒子来进行事件绑定
 ```vue
 <template>
@@ -166,18 +174,18 @@ const changePlay = (type: number) => {
   }
 </style>
 ```
-我们看下播放的效果
+我们看下**播放效果**
 ![playvideo.gif](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1b1bdda22c134dcba44be28fc29b1e9f~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=359&h=802&s=1006374&e=gif&f=31&b=d9e5e1)
 从上图中看，实现了上下滑动，点击播放。
 细心的小伙伴就会发现---我开始播放这个了，上一个还在播放...
 是的，没错---这就是接下来要解决的问题
 ### 多视频播放问题
 问题描述：
- - 上下滑动时，上一个播放中的视频没有暂停，开始播放当前视频。出现多视频播放
- - 希望滑到当前视频可以自动进行播放
-解决：在swiper的change事件中进行控制，代码如下
+ - 上下滑动时，上一个播放中的视频没有暂停，开始播放当前视频。出现**多视频播放**
+ - 希望自动播放当前视频
+ - 解决：在swiper的**change**事件中进行控制，代码如下
 1. 在swiper的change事件中进行控制 => 播放当前视频 + 暂停上一个视频（可能是上滑、下滑==> 所以直接暂停上一个和下一个）
-2. 使用ref获取实例进行控制，在VideoItem组件中向外暴露控制视实例instance
+2. 使用**ref**获取实例进行控制，在VideoItem组件中向外暴露控制视实例**player**
 ```vue
 <!-- 子组件 -->
 <script setup lang="ts">
@@ -221,29 +229,22 @@ const changeVideo = (index: number) => {
 }
 </script>
 ```
-看下最终效果---美滋滋
+看下最终效果---美滋滋 😍😍😍
 ![playvideo2.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aa17dbc998fb4ef483bf8a5ed911be6a~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=359&h=802&s=3508628&e=gif&f=91&b=c8bdc9)
 
-#### 构建报错
-原因：开发过程中切换过node版本
-解决：后面是切换了node版本：16.14.1 就好了
-```js
-Uncaught ReferenceError: _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_10___default is not defined
-```
-![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/395028c9a9f34818b4f5bcdeecc05930~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1857&h=615&s=705410&e=png&b=fdf6f6)
 
-## 优化方向
-- 视频尺寸问题（产品说就要撑满屏幕播放）
-- 视频播放卡顿问题（产品说要快一点）
+## 二、优化方向
+- 视频尺寸问题（产品说就要**撑满屏幕**）
+- 视频播放卡顿问题（产品说要**丝滑一点**）
 - 视频播自动播放(静音)
 - 切后台暂停
 
 ### 1.视频尺寸问题
-我们经常刷的抖音很多视频就是撑满屏幕的。
+我们经常刷的抖音很多视频就是撑满屏幕的。  
 
-产品：人家怎么做到的呢？像抖音、像油管
-卑微前端：根据视频原尺寸动态计算
-服务端： 我能给你返回视频原尺寸
+产品：人家怎么做到的呢？像抖音、像油管  
+卑微前端：根据视频原尺寸动态计算   
+服务端： 我能给你返回视频原尺寸  
 卑微前端：唯唯诺诺，，那那那行吧！！！
 
 #### 解决思路：
@@ -324,25 +325,22 @@ const videoStyle = computed(() => {
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6cdc7af1425244acacd1b3ad284ce1dd~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=797&h=832&s=1479874&e=png&b=834765)
 
 ### 2.卡顿问题
-- 背景：因为这个视频流的需求，最终是嵌套在webview中使用。然后app分给webview的内存是有限的，所以video标签过多就会出现卡顿。
-- 现象：测试那边刷到50多个视频的时候，就会变得很卡顿。60多甚至会卡死app
+- 背景：因为这个视频流的需求，最终是嵌套在**webview**中使用。然后app分给**webview**的内存是有限的，所以video标签过多就会出现卡顿，再者就是video本身就很耗内存。
+- 现象：测试那边刷到**50**多个视频的时候，就会变得很**卡顿**。60多甚至会**卡死app**
 
 当然，直接在chrome上，测试是100来个才会卡死。
 
 #### 解决思路
-1. 通过控制renderVideoList 来分批次渲染， allVideoList（接口拉取的所有视频）
-    - 视频的拉取分页，一次12个；然后前端再维护一个渲染列表
-    - 当用户滑到倒数第几个的时候，再往渲染列表里添加视频
-    - renderVideoList 没有渲染完从allVideoList拿，拿完再请求接口
-    - 这里一次往渲染列表+5个（可以酌情增加、减少）
+1. 通过控制**renderVideoList** 来分批次渲染， **allVideoList**（接口拉取的所有视频）
+    - allVideoList动态从分页接口拉取
+    - renderVideoList动态从allVideoList添加
+ 
 2. 通过动态增加和减少video标签的个数来解决
-    - 通过控制video标签的个数，来控制渲染视频的个数
-    - video超过n+1个时，删除第1个、以此类推
-    - 回到第n-1个时,动态添加第1个、以此类推
-常言道：前辈们已经铺好了路，咱就照着走
+
 3. 参考下抖音和油管
     - 油管：只留了1个video
     - 抖音：只留了3个video
+ 
 4. 实践之后发现刷得快，3个有点不够，出现loading较多--还是保留四个吧 
     - 维护renderVideoList和allVideoList
     - video只存在4个（当前、上一个、下一个、下下个）
@@ -427,12 +425,12 @@ const onLoad = async () => {
 ![playvideo4.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9c3f7847ded349a0ac1e7d7146009cb0~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1354&h=853&s=4124207&e=gif&f=68&b=eff5f7)
 
 ### 3.视频自动播放
-因为浏览器的限制，不允许自动播放视频（带声音），所以只能静音播放。
+因为浏览器的限制，**不允许自动播放视频**（带声音），**只能静音播放**。
+
 解决方案：静音播放，给用户一个解除静音的按钮。
 
-
-#### 注意点：video.play
-控制video的播放时，会返回一个promise
+#### 注意点：play方法
+控制video的播放时，会返回一个**Promise**
 ```js
 let video = document.getElementById('video');
 const playPromise = video?.play()
@@ -444,12 +442,12 @@ if (playPromise !== undefined) {
   });
 }
 ```
-后面产品想直接不自动播放，等用户点击播放（带声音）
+后面产品不想自动播放，**用户点击播放**（带声音）
 
+得嘞，那就不折腾了，考虑各浏览器间的兼容问题啥的...
 
 ### 4.切后台暂停
-1. 页面不可见时，暂停播放
-
+1.**页面不可见**时，**暂停播放**
 ```js
 const visibilityFn = () => {
   const player = proxy.$refs.videoItemRef[cureentIndex.value]?.player?.instance
@@ -469,18 +467,35 @@ onUnmounted(() => {
 })
 
 ```
-2. 切换到其它tab时，暂停播放
-这个需要原生进行通，切换至其它tab时，暂停播放
+2. 原生切换到其它**tab**时，**暂停播放**
+
+这个需要原生通知，切换至其它tab时，暂停播放
 
 
-## 总结
+## 三、总结+踩过的坑
 
 1. 上下滑动 => 使用swiper
 2. 滑动的播放暂停 => 使用$refs 来控制
-3. m3u8格式 => 使用videojs来解析（皆可以使用西瓜播放器平替xgplay）
+3. m3u8格式 => 使用videojs来解析（可以使用西瓜播放器平替xgplay或者其它）
 4. 视频尺寸问题 => 通过宽高比 计算出 宽 再进行居中处理
 5. 视频卡顿问题 => 动态控制video标签个数
-这里其实可以使用一个虚拟dom去动态load下面的视频，然后当播放到当前视频时会走缓存就更快一点了。
+可以使用一个虚拟dom去动态load下面的视频，然后当播放到当前视频时会走缓存就更快一点了，(小伙伴们可能会说：这样不是浪费用户流量么，才进来就框框缓存视频、流量框框掉。咱只要顺畅，嘿嘿，产品说要快 哈哈！！！)
+
+### 踩过的坑
+#### 构建编译报错babel
+原因：框架在对videojs做babel转换时，文件大小超过了500KB 就忽略了，以至于报错
+解决：在config.ts 添加 babelExtraModule: [/node_modlues\/video.js/]
+![50fa72d77b8ca0db62b572ec4a6f558.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f22053313a3b4ab7b0bee45aac53b1b2~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1903&h=192&s=354276&e=png&b=2d323a)
+```js
+Uncaught ReferenceError: _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_10___default is not defined
+```
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/395028c9a9f34818b4f5bcdeecc05930~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1857&h=615&s=705410&e=png&b=fdf6f6)
+
+#### node版本问题
+刚开始是用的node16.20.0，然后发现ssr-app默认需要的版本 18.13.0 或者大于 20.09.0
+这里我升级了node版本 20.11.1，然后发现部署时宝塔又支持18已上，无奈只能将版本了。。。
+然后 dev 分支是 20.11.0node
+master 分支是 16.20.0
 
 ## 源码
 [github地址](https://github.com/xiaoyi1255/nestjs-vue3-ssr-video.git)
