@@ -483,8 +483,20 @@ onUnmounted(() => {
 
 ### 踩过的坑
 #### 构建编译报错babel
-原因：框架在对videojs做babel转换时，文件大小超过了500KB 就忽略了，以至于报错
-解决：在config.ts 添加 babelExtraModule: [/node_modlues\/video.js/]
+**原因**：框架在对videojs做babel转换时，文件大小超过了500KB 就忽略了，以至于报错
+
+**解决**：在config.ts 添加 babelExtraModule: [/node_modlues\/video.js/]
+
+```ts
+// config.ts
+
+import type { UserConfig } from 'ssr-types'
+export const userConfig: UserConfig = {
+  serverPort: 3000,
+  host: '0.0.0.0',
+  babelExtraModule: [/node_modlues\/video.js/]
+}
+```
 ![50fa72d77b8ca0db62b572ec4a6f558.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f22053313a3b4ab7b0bee45aac53b1b2~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1903&h=192&s=354276&e=png&b=2d323a)
 ```js
 Uncaught ReferenceError: _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_10___default is not defined
@@ -493,12 +505,21 @@ Uncaught ReferenceError: _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MO
 
 #### node版本问题
 刚开始是用的node16.20.0，然后发现ssr-app默认需要的版本 18.13.0 或者大于 20.09.0
-这里我升级了node版本 20.11.1，然后发现部署时宝塔又支持18已上，无奈只能将版本了。。。
+这里我升级了node版本 20.11.1，然后发现部署时宝塔不支持18以上，无奈只能降版本了。。。
 然后 dev 分支是 20.11.0node
 master 分支是 16.20.0
 
 ## 源码
 [github地址](https://github.com/xiaoyi1255/nestjs-vue3-ssr-video.git)
 
+
+## 结语：
+如果本文对你有收获，麻烦动动发财的小手，点点关注、点点赞！！！👻👻👻
+
+因为收藏===会了
+
+如果有不对、更好的方式实现、可以优化的地方欢迎在评论区指出，谢谢👾👾👾
+
+本文主要实现了：上下滑动刷视频、M3U8解析播放、视频尺寸自适应、动态维护视频播放器（性能优化）,最后是踩坑及总结...
 
 
