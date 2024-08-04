@@ -134,6 +134,18 @@ function sidebarGuide() {
         { text: '1、判断两数组内容相等', link: '/guide/js/arraryEqual'},
         { text: '2、js进行大数相加', link: '/guide/js/addNum'},
         { text: '3、SSE实现站内信', link: '/guide/js/message'},
+        {
+          text: 'js基础',
+          collapsed: true,
+          items: [
+            { text: 'js基础', link: '/guide/js/base'},
+          ]
+
+        },
+        {
+          text: '5、js实现图片压缩',
+          link: '/guide/js/compressImg',
+        }
       ],
     },
     {

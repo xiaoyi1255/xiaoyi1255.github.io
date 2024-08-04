@@ -1,16 +1,19 @@
 ---
-title: 仿抖音的视频流页面
+title: 视频流
 titleTemplate: nestjs-vue3-ssr-video
 highlight: a11y-light
 theme: channing-cyan
 ---
 
-本文主主要从0到1基于Vue3构建一个视频流页面。
-功能：视频解析、基本播放、上下滑动切换、性能优化等
-框架：[SSR(nestjs)]([SSR](http://doc.ssr-fc.com/docs/features$started)) + Vue3 + Vant3
-环境：node版本：v16.20.0
+> 本文: 从0到搭建一个视频流页面。  
+> 功能：m3u8视频解析、基本播放、上下滑动切换、性能优化等  
+> 框架：[SSR(nestjs)]([SSR](http://doc.ssr-fc.com/docs/features$started)) + Vue3 + Vant3
+> 环境：node版本：v16.20.0
+
+线上体验地址：[😍视频流😍](http://www.xiaoyi.pub:8088/) 
+[😍视频流😍](http://118.89.125.27:8088/) 
 ## 背景
-1. 视频解析：因为视频格式基于m3u8,本文选择的是videojs，可以考虑xgplay、HLS.js 等
+1. 视频解析：因为视频格式基于m3u8,本文选择的是videojs，可以考虑xgplay、hls.js 等
 2. 视频流的实现：上下滑动、基本播放、切后台暂停
 3. 考虑性能问题：首屏加载、懒加载、预加载、动态销毁dom
     - 首屏加载：初始化接口需要注册、拉取特别多信息，所以选择了SSR首屏更快一些
@@ -240,12 +243,12 @@ const changeVideo = (index: number) => {
 - 切后台暂停
 
 ### 1.视频尺寸问题
-我们经常刷的抖音很多视频就是撑满屏幕的。  
+我们经常刷的抖音很多视频就是**撑满屏幕**的。  
 
-产品：人家怎么做到的呢？像抖音、像油管  
-卑微前端：根据视频原尺寸动态计算   
-服务端： 我能给你返回视频原尺寸  
-卑微前端：唯唯诺诺，，那那那行吧！！！
+**产品**：人家怎么做到的呢？像抖音、像油管  
+**卑微前端**：根据视频原尺寸动态计算   
+**服务端**： 我能给你返视频原尺寸  
+**卑微前端**：唯唯诺诺，，那那那行吧！！！
 
 #### 解决思路：
 1. 获取视频原尺寸 （接口返回）
@@ -324,7 +327,7 @@ const videoStyle = computed(() => {
 下面是效果图
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6cdc7af1425244acacd1b3ad284ce1dd~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=797&h=832&s=1479874&e=png&b=834765)
 
-### 2.卡顿问题
+### 2.卡顿问题--动态渲染及销毁
 - 背景：因为这个视频流的需求，最终是嵌套在**webview**中使用。然后app分给**webview**的内存是有限的，所以video标签过多就会出现卡顿，再者就是video本身就很耗内存。
 - 现象：测试那边刷到**50**多个视频的时候，就会变得很**卡顿**。60多甚至会**卡死app**
 
@@ -503,15 +506,17 @@ Uncaught ReferenceError: _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MO
 ```
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/395028c9a9f34818b4f5bcdeecc05930~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1857&h=615&s=705410&e=png&b=fdf6f6)
 
-#### node版本问题
-刚开始是用的node16.20.0，然后发现ssr-app默认需要的版本 18.13.0 或者大于 20.09.0
+#### node版本问题😭😭
+刚开始是用的**node** **16.20.0**，然后发现ssr-app默认需要的版本 **18.13.0** 或者大于 **20.09.0**
+
 这里我升级了node版本 20.11.1，然后发现部署时宝塔不支持18以上，无奈只能降版本了。。。
-然后 dev 分支是 20.11.0node
-master 分支是 16.20.0
+
+**dev 分支是 20.11.0**
+
+**master 分支是 16.20.0**
 
 ## 源码
 [github地址](https://github.com/xiaoyi1255/nestjs-vue3-ssr-video.git)
-
 
 ## 结语：
 如果本文对你有收获，麻烦动动发财的小手，点点关注、点点赞！！！👻👻👻
@@ -519,7 +524,4 @@ master 分支是 16.20.0
 因为收藏===会了
 
 如果有不对、更好的方式实现、可以优化的地方欢迎在评论区指出，谢谢👾👾👾
-
-本文主要实现了：上下滑动刷视频、M3U8解析播放、视频尺寸自适应、动态维护视频播放器（性能优化）,最后是踩坑及总结...
-
 
