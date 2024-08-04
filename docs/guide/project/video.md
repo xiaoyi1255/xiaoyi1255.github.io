@@ -7,7 +7,7 @@ theme: channing-cyan
 
 > 本文: 从0到搭建一个视频流页面。  
 > 功能：m3u8视频解析、基本播放、上下滑动切换、性能优化等  
-> 框架：[SSR(nestjs)]([SSR](http://doc.ssr-fc.com/docs/features$started)) + Vue3 + Vant3
+> 框架：[SSR](http://doc.ssr-fc.com/docs/features$started) + Vue3 + Vant3
 > 环境：node版本：v16.20.0
 
 线上体验地址：[😍视频流😍](http://www.xiaoyi.pub:8088/) 

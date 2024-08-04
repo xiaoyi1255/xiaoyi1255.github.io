@@ -139,6 +139,7 @@ function sidebarGuide() {
           collapsed: true,
           items: [
             { text: 'js基础', link: '/guide/js/base'},
+            { text: 'js手写题', link: '/guide/js/jsWrite'},
           ]
 
         },
