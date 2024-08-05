@@ -64,7 +64,7 @@ function sleep(time) {
 async function test() {
   for (let i = 1; i <= 3; i++) {
     await sleep(i * 1000);
-    console.log(i); 
+    console.log(i);
   }
 }
 
@@ -86,7 +86,7 @@ const arr = [1, [2, [3, [4, [5]]]]];
 
 // 1.使用reduce
 function flatten1(arr) {
-  return arr.reduce((pre,cur) => {
+  return arr.reduce((pre, cur) => {
     return pre.concat(Array.isArray(cur) ? flatten1(cur) : cur)
   }, [])
 }
@@ -107,7 +107,7 @@ function flatten2(arr) {
 // 3. 控制扁平深度
 function flatten3(arr, depth = 1) {
   if (depth === 0) return arr;
-  return arr.reduce((pre,cur) => {
+  return arr.reduce((pre, cur) => {
     return pre.concat(Array.isArray(cur) ? flatten3(cur, depth - 1) : cur)
   }, [])
 }
@@ -116,47 +116,47 @@ function flatten3(arr, depth = 1) {
 // 2. 实现深拷贝
 
 function deepClone(obj, map = new WeakMap()) {
-	if (typeof obj !== 'object' || obj === null) return obj
+  if (typeof obj !== 'object' || obj === null) return obj
 
-	// 处理循环引用
-	if (map.has(obj)) return map.get(obj)
+  // 处理循环引用
+  if (map.has(obj)) return map.get(obj)
 
-	// 处理日期对象
-	if (obj instanceof Date) return new Date(obj)
-	// 处理正则对象
-	if (obj instanceof RegExp) return new RegExp(obj)
+  // 处理日期对象
+  if (obj instanceof Date) return new Date(obj)
+  // 处理正则对象
+  if (obj instanceof RegExp) return new RegExp(obj)
 
-	// Handle Map
-	if (obj instanceof Map) {
-		const mapCopy = new Map()
-		map.set(obj, mapCopy)
-		for (const [key, value] of obj) {
-			mapCopy.set(deepClone(key, map), deepClone(value, map))
-		}
-		return mapCopy
-	}
+  // Handle Map
+  if (obj instanceof Map) {
+    const mapCopy = new Map()
+    map.set(obj, mapCopy)
+    for (const [key, value] of obj) {
+      mapCopy.set(deepClone(key, map), deepClone(value, map))
+    }
+    return mapCopy
+  }
 
-	// Handle Set
-	if (obj instanceof Set) {
-		const setCopy = new Set()
-		map.set(obj, setCopy)
-		for (const value of obj) {
-			setCopy.add(deepClone(value, map))
-		}
-		return setCopy
-	}
+  // Handle Set
+  if (obj instanceof Set) {
+    const setCopy = new Set()
+    map.set(obj, setCopy)
+    for (const value of obj) {
+      setCopy.add(deepClone(value, map))
+    }
+    return setCopy
+  }
 
-	let res = Array.isArray(obj) ? [] : {}
-	map.set(obj, res)
+  let res = Array.isArray(obj) ? [] : {}
+  map.set(obj, res)
 
-	for (let key in obj) {
-		// for...in会遍历原型链上的属性
-		if (obj.hasOwnProperty(key)) {
-			// 只拷贝对象自身的属性
-			res[key] = deepClone(obj[key], map)
-		}
-	}
-	return res
+  for (let key in obj) {
+    // for...in会遍历原型链上的属性
+    if (obj.hasOwnProperty(key)) {
+      // 只拷贝对象自身的属性
+      res[key] = deepClone(obj[key], map)
+    }
+  }
+  return res
 }
 
 // 测试代码
@@ -174,7 +174,78 @@ const obj2 = {
   i: new Map([['a', 1], ['b', 2]]),
   j: new Set([1, 2, 3])
 }
-let cpObj = deepClone(obj2)
-cpObj.b.d.e = 4
-cpObj.j.add(4)
-console.log(obj2, cpObj)
+// let cpObj = deepClone(obj2)
+// cpObj.b.d.e = 4
+// cpObj.j.add(4)
+// // console.log(obj2, cpObj)
+
+// console.log(b); // 报错：ReferenceError: Cannot access 'b' before initialization
+// let b = 1;
+
+/**
+ * 并发请求控制
+ * @param {Array} urls 请求地址列表
+ * @param {Number} maxNum 最大并发数
+ * @returns {Promise}
+ */
+async function request(urls, maxNum) {
+  return new Promise((resolve, reject) => {
+    const result = []
+    let index = 0
+    let count = 0
+    async function fetchFn() {
+      if (index === urls.length) {
+        return
+      }
+      const url = urls[index]
+      index++
+      try {
+        const res = await fetch(url)
+        result[index] = res
+      } catch (error) {
+        result[index] = error
+      } finally {
+        count++
+        if (count === urls.length) {
+          resolve(result)
+        } else {
+          fetchFn()
+        }
+      }
+    }
+    let len = Math.min(maxNum, urls.length)
+    for (let i = 0; i < len; i++) {
+      fetchFn()
+    }
+  })
+}
+
+// 测试
+//  request(['https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com'], 3)
+
+let a = null;
+let b = undefined;
+let c = 0;
+let d = '';
+let e = NaN;// let f = false;
+let g = 1;
+let h = 'hello';
+
+// console.log(a ?? b); // undefined
+// console.log(a ?? c); // 0
+// console.log(a ?? d); // ''
+// console.log(a ?? e); // NaN
+// console.log(a ?? g); // 1
+// console.log(a ?? h); // hello
+
+// console.log(a || b); // undefined
+// console.log(a || c); // 0
+// console.log(a || d); // ''
+// console.log(a || e); // NaN
+// console.log(a || g); // 1
+// console.log(a || h); // hello
+
+
+let str3 = '1 hello world 1';
+let str4 = str3.replaceAll(/[a-z]/g, 'x');
+console.log(str4);

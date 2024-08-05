@@ -467,6 +467,53 @@ Function.prototype._bind = function (context, arg) {
 }
 
 ```
+## 13. 实现简易的并发请求控制
+1. 使用三方库：p-limit
+2. 手写实现
+
+```js
+/**
+ * 并发请求控制
+ * @param {Array} urls 请求地址列表
+ * @param {Number} maxNum 最大并发数
+ * @returns {Promise}
+ */
+async function request(urls, maxNum) {
+  return new Promise((resolve, reject) => {
+    const result = []
+    let index = 0
+    let count = 0
+    async function fetchFn() {
+      if (index === urls.length) {
+        return
+      }
+      const url = urls[index]
+      index++
+      try {
+        const res = await fetch(url)
+        result[index] = res
+      } catch (error) {
+        result[index] = error
+      } finally {
+        count++
+        if (count === urls.length) {
+          resolve(result)
+        } else {
+          fetchFn()
+        }
+      }
+    }
+    let len = Math.min(maxNum, urls.length)
+    for (let i = 0; i < len; i++) {
+      fetchFn()
+    }
+  })
+}
+
+// 测试
+ request(['https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com', 'https://www.baidu.com'], 3)
+```
+
 
 ## 结语：
 如果本文对你有收获，麻烦动动发财的小手，点点关注、点点赞！！！👻👻👻
