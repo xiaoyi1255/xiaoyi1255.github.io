@@ -140,6 +140,7 @@ function sidebarGuide() {
           items: [
             { text: 'js基础', link: '/guide/js/base'},
             { text: 'js手写题', link: '/guide/js/jsWrite'},
+            { text: '手写Promise', link: '/guide/js/promise'},
           ]
 
         },

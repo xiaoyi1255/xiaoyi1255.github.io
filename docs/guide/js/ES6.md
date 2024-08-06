@@ -1,5 +1,9 @@
-## ES6
-## ES7
+---
+theme: channing-cyan
+---
+## ES6(2015)
+ES6 推荐大家参考阮一峰老师的：[ES6 入门教程](ttps://es6.ruanyifeng.com/)
+## ES7(2016)
 ### 1. Array.prototype.includes
 [includes](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)： 方法用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回 false。
 - 参数：includes(searchElement, fromIndex)
@@ -41,7 +45,7 @@ console.log(2 ** -3) // 0.125
 
 
 
-## ES8
+## ES8(2017)
 - Async/Await
 - String padStart()和padEnd()方法
 - Object values、entries、getOwnPropertyDescriptors()
@@ -103,7 +107,7 @@ Object.getOwnPropertyDescriptors(obj)
 //      configurable: true } }
 ```
 
-## ES9
+## ES9(2018)
 - for await...of
 - ... Rest剩余运算符
 - Object扩展
@@ -239,6 +243,7 @@ let bigInt1 = BigInt('1234567890123456789012345678901234567890');
 console.log(bigInt); // 1234567890123456789012345678901234567890n
 ```
 ### 2. Promise.allSettled
+[Promise手写](https://juejin.cn/post/7399827379052347444)
 - 与 Promise.all区别 用法完全一致
 等效 Promise.all，但不会因为某个promise失败而拒绝。
 - 返回值：
