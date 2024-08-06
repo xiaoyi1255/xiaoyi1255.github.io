@@ -141,6 +141,7 @@ function sidebarGuide() {
             { text: 'js基础', link: '/guide/js/base'},
             { text: 'js手写题', link: '/guide/js/jsWrite'},
             { text: '手写Promise', link: '/guide/js/promise'},
+            { text: 'ES6~ES14', link: '/guide/js/ES6'},
           ]
 
         },
