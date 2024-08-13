@@ -89,6 +89,13 @@ function sidebarGuide() {
       ]
     },
     {
+      text: 'Vue2、Vue3',
+      collapsed: true, // true:目录自动展开 [pc端生效]
+      items: [
+        { text: 'Vue全局错误处理', link: '/guide/project/vue' },
+      ]
+    },
+    {
       text: '网络请求',
       collapsed: true,
       items: [
@@ -145,10 +152,7 @@ function sidebarGuide() {
           ]
 
         },
-        {
-          text: '5、js实现图片压缩',
-          link: '/guide/js/compressImg',
-        }
+        {text: '5、js实现图片压缩',link: '/guide/js/compressImg'},
       ],
     },
     {
@@ -156,6 +160,7 @@ function sidebarGuide() {
       collapsed: true,
       items: [
         { text: '免费的内网穿透工具: ngrok', link: '/guide/utils/ngrok'},
+        { text: '发布一个npm包', link: '/guide/utils/npm'},
       ],
     },
     {

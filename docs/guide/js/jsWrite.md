@@ -710,6 +710,53 @@ class MyPromise {
   }
 }
 ```
+## 15. 前端埋点上报
+前端埋点上报：
+- 传统请求方式axios\fetch
+    - 优点：请求方式任意，上报数据无限制
+		- 缺点：数据上报的实时性差，需要等待js执行完成，且可能会阻塞页面渲染
+- sendBeacon
+	  - 优点：不占用浏览器请求通道，不会阻塞页面
+		- 缺点：只支持post请求
+- img
+    - 优点：不存在跨域问题、不需要插入dom
+		- 缺点：只支持get请求，上报数据体大小有限制
+```ts
+const url = '';
+export function reportBySendBeacon(data: any) {
+  if (!navigator?.sendBeacon) {
+    return reportByImg(data)
+  }
+  return navigator.sendBeacon(url, JSON.stringify(data));
+}
+
+export function reportByImg(data={}) {
+  const img = new Image();
+  const query = new URLSearchParams(data).toString();
+  img.src = `${url}?data=${JSON.stringify(query)}`;
+  return new Promise((resolve, reject) => {
+    img.onload = () => resolve('Success');
+    img.onerror = () => reject('Error');
+  })
+}
+
+export function reportFetch(data: any) {
+  return new Promise((resolve, reject) => {
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => {
+      resolve(res);
+    }).catch(err => {
+      reject(err);
+    })
+  })
+}
+
+```
 
 ## 结语：
 如果本文对你有收获，麻烦动动发财的小手，点点关注、点点赞！！！👻👻👻
