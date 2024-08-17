@@ -758,6 +758,25 @@ export function reportFetch(data: any) {
 
 ```
 
+## 16. 单例模式
+- 确保某个类只能出现一个实例
+```js
+function singleton(className) {
+  let ins;
+  return new Proxy (className,  {
+    construct(target, argArray){
+      if (!ins) {
+        ins = new target(...argArray);
+      }
+      return ins;
+    }
+  })
+}
+```
+
+
+
+
 ## 结语：
 如果本文对你有收获，麻烦动动发财的小手，点点关注、点点赞！！！👻👻👻
 

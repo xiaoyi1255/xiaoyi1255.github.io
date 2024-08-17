@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index page</title>
+</head>
+<body>
+  <script type="module" src="">
+    const webWorker = new Worker('../js/worker.js');
+    // 
+    const arr =  Array.from({ length: 100000 }, (_, i) => i + 1);
+    webWorker.postMessage({type: 'add', data: arr});
+    webWorker.postMessage({type: 'fetch', data: 'https://jsonplaceholder.typicode.com/posts/1'});
+    webWorker.onmessage = function (event) {
+      console.log(event.data);
+    }
+    webWorker.onmessageerror = function (event) {
+      console.log(event.message);
+    }
+    webWorker.onerror = function (event) {
+      console.log(event.message);
+    }
+  </script>
+
+  <script type="module" src>
+    const sharedWorker = new SharedWorker('../js/share.js', {name: 'index'}
+    );
+    sharedWorker.port.start();
+    sharedWorker.port.postMessage('Hello from Page 1!');
+    sharedWorker.port.onmessage = function (event) {
+      console.log(event.data);
+    }
+    sharedWorker.port.onerror = function (event) {
+      console.log( event.message);
+    }
+    function add() {
+      sharedWorker.port.postMessage({type: 'increment'});
+      sharedWorker.port.postMessage({type: 'increment'});
+      sharedWorker.port.postMessage({type: 'increment'});
+      sharedWorker.port.postMessage({type: 'increment'});
+      sharedWorker.port.postMessage({type: 'increment'});
+    }
+  </script>
+
+
+  <script type="module">
+  if ('serviceWorker' in navigator) {
+    const registerServiceWorker = async () => {
+      if ("serviceWorker" in navigator) {
+        try {
+          const registration = await navigator.serviceWorker.register("./sw.js?v=35611433", {
+            scope: "./",
+          });
+          if (registration.installing) {
+            console.log("正在安装 Service worker", registration);
+          } else if (registration.waiting) {
+            console.log("已安装 Service worker installed", registration);
+          } else if (registration.active) {
+            console.log("激活 Service worker", registration);
+          }
+          registration.addEventListener("updatefound", () => {
+            console.log("更新 Service worker", registration);
+          });
+          setInterval(() => {
+            // fetch("http://localhost:3001/api/user/getJSON").then((res) => {
+            //   console.log("fetch success: ", res.data);
+            // })
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost:3001/api/user/getJSON", true);
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("fetch success: ", JSON.parse(xhr.responseText));
+              }
+            };
+            xhr.send();
+          }, 10000);
+        } catch (error) {
+          console.error(`注册失败：${error}`);
+        }
+      }
+    };
+    registerServiceWorker()
+  }
+  </script>
+</body>
+</html>

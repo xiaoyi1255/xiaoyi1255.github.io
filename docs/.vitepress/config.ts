@@ -101,6 +101,7 @@ function sidebarGuide() {
       items: [
         { text: 'http缓存', link: '/guide/network/httpCache.md' },
         { text: 'service Worker缓存', link: '/guide/network/serviceWorker.md' },
+        { text: 'web worker', link: '/guide/js/worker/worker.md' },
         { text: 'axios 取消重复请求', link: '/guide/network/axios.md' },
         { text: '接口数据缓存', link: '/guide/network/dataCache.md' },
       ]

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Other Page</title>
+</head>
+<body>
+  <script type="module">
+    const sharedWorker = new SharedWorker('../js/share.js', {name: 'other'}
+    );
+    sharedWorker.port.start();
+    const log = (msg) => console.log(msg);
+    sharedWorker.port.postMessage('Hello from Page 2!');
+    sharedWorker.port.onmessage = function (event) {
+      console.log(event.data);
+    }
+    sharedWorker.port.onerror = function (event) {
+      console.log( event.message);
+    }
+
+  </script>
+</body>
+</html>
