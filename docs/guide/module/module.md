@@ -285,7 +285,7 @@ export default {
 ```
 完结撒花🎃，工程中尽量避免循环引用问题。。。。
 ## 源码
-[小易]()
+[小易](https://github.com/xiaoyi1255/xiaoyi1255.github.io/tree/master/docs/guide/module)
 ## 结语：
 如果本文对你有收获，麻烦动动发财的小手，点点关注、点点赞！！！👻👻👻
 
