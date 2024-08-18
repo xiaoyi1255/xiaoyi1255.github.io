@@ -7,13 +7,13 @@ theme: channing-cyan
 [前端项目优化之 取消请求](https://juejin.cn/post/7403606630695714855)
 
 ## 什么是web worker
-因为js是单线程，往往不能满足需求，所以提供了web worker.
+因为js是单线程，往往不能满足需求😒，所以提供了web worker.
 
-Web Worker 使得在一个独立于 Web 应用程序主执行线程的后台线程中运行脚本操作成为可能。
+Web Worker 使得在一个独立于 Web 应用程序**主执行线程**的**后台线程**中运行脚本操作成为可能。
 
 这样做的好处是可以在独立线程中执行费时的处理任务，使主线程（通常是 UI 线程）的运行不会被阻塞/放慢。
 
-本文主要介绍：Worker、SharedWorker、serviceWorker的基本使用、注意事项及总结
+本文主要介绍：**Worker**、**SharedWorker**、**serviceWorker**的基本使用、注意事项及总结
 
 
 ## 一、Woker
@@ -138,16 +138,16 @@ self.addEventListener('connect', function(event) {
 ```
 vue中的使用
 
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/3a0d5cc13da649b9a7a2b14d012076a6~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1723958116&x-orig-sign=btUXM8wdxue8UmINiDF%2BsFU%2BelM%3D)
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/3a0d5cc13da649b9a7a2b14d012076a6~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1724555200&x-orig-sign=qjQ2qGN9KjicJEDzHGmJMFCLidE%3D)
 下面vue中是运行效果
-![shareworker.gif](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/f619f2ffbfc341e18f92fae9f3b578cb~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1723958011&x-orig-sign=nAoF1H163FlBwAXVQMk4U%2F9mEKA%3D)
+![shareworker.gif](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/f619f2ffbfc341e18f92fae9f3b578cb~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1724555200&x-orig-sign=T0bmWVZpjcA77aOc2BCLX9%2F20qg%3D)
 ### 3.注意事项
 - SharedWorker脚本的打印在 chrome://inspect/#workers
 - 多个页面注册共用一个name，才能正确响应
 - 页面同源
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/5fb5ef1a412a422aa289d52126acf1de~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1723958384&x-orig-sign=mfAICIgjqMSx%2FXMA%2BJ6IAs%2BVTFU%3D)
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/5fb5ef1a412a422aa289d52126acf1de~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1724555200&x-orig-sign=WgFPnxBjekhs9QwzEINrILX0wqA%3D)
 
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/1eea9c3ff6c840ecaeb74dd47ac47300~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1723958625&x-orig-sign=kJPcxwiIs9VERLjF8tHArQmgKdQ%3D)
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/1eea9c3ff6c840ecaeb74dd47ac47300~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1724555200&x-orig-sign=F9B0OJzlYVER9wc%2B6QMgW%2FWeBMA%3D)
 
 
 ## 三、service Worker
@@ -163,7 +163,7 @@ vue中的使用
     3. 匹配缓存，查看缓存是否过期，未过期直接返回缓存
     4. 过期，重新发起请求，并把响应结果推到缓存，并返回
 
-### 2. service Worker 的使用
+### 2. service Worker基础使用
 主线程
 ```js
 const registerServiceWorker = async () => {
@@ -182,11 +182,6 @@ const registerServiceWorker = async () => {
       registration.addEventListener("updatefound", () => {
         console.log("更新 Service worker", registration);
       });
-      setInterval(() => {
-        fetch("http://localhost:3001/api/user/getJSON").then((res) => {
-          console.log("fetch success: ", res.data);
-        })
-      }, 10000);
   } catch (error) {
     console.error(`注册失败：${error}`);
   }
@@ -194,8 +189,11 @@ const registerServiceWorker = async () => {
 };
 registerServiceWorker()
 ```
-
 service worker
+1. **install**：浏览器检测到新serviceworker文件或内容更新，会下载并安装，次阶段可做预缓存，**注意**缓存失败，会导致service worker也安装失败。
+2. **active**: istall完成，进入激活阶段，一般可用于清理旧缓存
+4. **fetch**: 拦截与之建立连接的网页的所有请求，进入做缓存策略
+5. ""
 ```js
 // sw.js
 const CACHE_NAME = 'cache-v1.0';
@@ -248,6 +246,57 @@ self.addEventListener('activate', event => {
 // 监听 fetch 事件
 self.addEventListener('fetch', event => {
   const requestUrl = new URL(event.request.url);
+});
+```
+### 3. 双向通信实现
+```js
+// 主线程
+// index.html
+const sw = navigator.serviceWorker;
+const registration = await sw.register("./sw.js", {
+scope: "./",
+});
+sw.addEventListener("message", function (e){
+  console.log("收到消息", e.data);
+})
+sw.controller.postMessage({
+  msg: "Hello from the page!",
+  timestamp: Date.now()
+});
+
+// ___________________________________________________________________//
+// sw.js
+self.addEventListener('message', event => {
+  console.log('Worker received message:', event.data);
+
+  self.clients.matchAll().then(clients => {
+    console.log('Service Worker fetch', clients);
+    clients.forEach(client => {
+      client.postMessage({
+        msg: "Hello from your Service Worker!",
+        timestamp: Date.now()
+      });
+    });
+  });
+})
+
+```
+### 4.缓存实战
+现在页面中请求
+```js
+// index.html
+fetch("http://localhost:3001/api/user/getJSON").then((res) => {
+  console.log("fetch success: ", res.data);
+})
+```
+```js
+// sw.js
+const CACHE_NAME = 'cache-v1.0.1';
+const expirationTime = 1000 * 60 * 60 * 24 * 7; // 缓存过期时间为一周
+const urlsToCache = ['/api/user/getJSON']
+// 监听 fetch 事件
+self.addEventListener('fetch', event => {
+  const requestUrl = new URL(event.request.url);
   if (urlsToCache.includes(requestUrl.pathname )) {
     event.respondWith(
       caches.open(CACHE_NAME)
@@ -286,20 +335,25 @@ self.addEventListener('fetch', event => {
   }
 });
 ```
+缓存成功networker如下图：
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/52056f2a02a24f71ab235e3683663bce~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1724555200&x-orig-sign=mq9NET9qW7bi%2BhCyAUXWKo9OdOk%3D)
+缓存存放位置：
 
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/52056f2a02a24f71ab235e3683663bce~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1723980532&x-orig-sign=OSkA1Khxzk4M%2Fjr%2B%2BWai9ZMH2Bg%3D)
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/48bbdcb9d0994f419517fa47b3d755c6~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1724555200&x-orig-sign=mtxZmcqNGHs88UYGAcOkS7KklKI%3D)
 
-### 3.实战参考
+### 5.更多实战参考
 项目实战可以参考：[浏览器缓存之Service Worker](https://juejin.cn/post/7203911920638165052)
 
-
-## 总结
+## 源码与总结 
+### 源码:
+[小易worker](https://github.com/xiaoyi1255/xiaoyi1255.github.io/tree/master/docs/guide/js/worker)
+### 总结
 **worker**: 一般用于复杂、大量的数据计算，不会阻塞主线程，可以提升性能
 
 **service worker**: 一般用于缓存资源，提升性能，离线访问，无网络情况的基本内容展示
 
 **shared worker**: 一般用于多页面的通信，可以共享数据，提升性能
-此外多页面通信的方式还有：service worker、localStorage、cookie、BroadcastChannel、open、postMessage等
+此外多页面通信的方式还有：service worker、localStorage、cookie、BroadcastChannel、open、postMessage、websocket等
 
 ## 结语：
 如果本文对你有收获，麻烦动动发财的小手，点点关注、点点赞！！！👻👻👻
