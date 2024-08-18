@@ -6,6 +6,7 @@
   <title>Index page</title>
 </head>
 <body>
+  <!-- Worker -->
   <script type="module" src="">
     const webWorker = new Worker('../js/worker.js');
     // 
@@ -23,6 +24,7 @@
     }
   </script>
 
+  <!-- Shared Worker  -->
   <script type="module" src>
     const sharedWorker = new SharedWorker('../js/share.js', {name: 'index'}
     );
@@ -43,38 +45,41 @@
     }
   </script>
 
-
+  <!-- service Worker -->
   <script type="module">
   if ('serviceWorker' in navigator) {
     const registerServiceWorker = async () => {
       if ("serviceWorker" in navigator) {
         try {
-          const registration = await navigator.serviceWorker.register("./sw.js?v=35611433", {
-            scope: "./",
+          const sw = navigator.serviceWorker;
+          const registration = await sw.register("../js/sw.js", {
+            scope: "../js/",
           });
-          if (registration.installing) {
-            console.log("正在安装 Service worker", registration);
-          } else if (registration.waiting) {
-            console.log("已安装 Service worker installed", registration);
-          } else if (registration.active) {
-            console.log("激活 Service worker", registration);
-          }
-          registration.addEventListener("updatefound", () => {
-            console.log("更新 Service worker", registration);
-          });
+          sw.addEventListener("message", function (e){
+              console.log("收到消息", e.data);
+            })
+            sw.addEventListener("statechange", function (e){
+              console.log("状态改变", e.target.state);
+            })
           setInterval(() => {
-            // fetch("http://localhost:3001/api/user/getJSON").then((res) => {
-            //   console.log("fetch success: ", res.data);
-            // })
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://localhost:3001/api/user/getJSON", true);
-            xhr.onreadystatechange = function () {
-              if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log("fetch success: ", JSON.parse(xhr.responseText));
-              }
-            };
-            xhr.send();
-          }, 10000);
+            fetch("http://localhost:3001/api/user/getJSON").then((res) => {
+              console.log("fetch success: ", res.data);
+            })
+            // const xhr = new XMLHttpRequest();
+            // xhr.open("GET", "http://localhost:3001/api/user/getJSON", true);
+            // xhr.onreadystatechange = function () {
+            //   if (xhr.readyState === 4 && xhr.status === 200) {
+            //     console.log("fetch success: ", JSON.parse(xhr.responseText));
+            //   }
+            // };
+            // xhr.send();
+
+            sw.controller.postMessage({
+              msg: "Hello from the page!",
+              timestamp: Date.now()
+            });
+            
+          }, 2000);
         } catch (error) {
           console.error(`注册失败：${error}`);
         }
