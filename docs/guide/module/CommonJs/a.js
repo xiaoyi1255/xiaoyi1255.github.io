@@ -3,4 +3,8 @@ function sub(a, b) {
   return a - b;
 }
 
-exports.sub = sub;
+exports.sub=sub;
+
+exports.obj= {
+  name: 'test'
+}

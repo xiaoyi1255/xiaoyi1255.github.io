@@ -10,9 +10,17 @@
 <body>
   <h1>AMD Example</h1>
   <div id="text"></div>
+  <div id="text1"></div>
   <script>
     require(['./a.js'], function (a) {
+      a.message = 'Hello, AMD!';
+      a.obj = { name: 'AMD' };
       document.getElementById('text').innerHTML = a.message;
+    });
+  </script>
+  <script>
+    require(['./a.js'], function (a) {
+      document.getElementById('text1').innerHTML = a.obj.name;
     });
   </script>
 </body>
