@@ -112,6 +112,9 @@ define(function(require, exports, module) {
 define(function(require) {
   const a = require('./a');
   console.log(a.message);
+  return {
+      name: '小易'
+  }
 });
 
 ```
@@ -128,15 +131,16 @@ define(function(require) {
 <body>
     <h1>Check the console for output</h1>
     <script>
-        seajs.use('./app.js');
+        seajs.use('./app.js', app => {
+            console.log(app.name) // 小易
+        });
     </script>
 </body>
 </html>
 ```
 
 ### UMD（兼容模式）
-1. 通过define定义模块，通过require引入模块。
-2. 模块是异步加载的，适用于浏览器端。
+2. 模块是异步加载的。
 3. UMD兼容**CommonJS**和**AMD**规范,都不满足 => **全局变量方式**。
 4. 适用于浏览器和Node.js环境。
 ```js
@@ -170,6 +174,7 @@ define(function(require) {
 5. 不同于CommenJS，ES6 Module输出的是值的引用，而不是浅复制。
 6. ES6 Module是**官方提供的模块化方案**，，其它都是社区实现的。（ES2015）
 7. 指定加载某个输出值，而不是整个模块，有利于代码分割和**tree shaking**。
+8. import 导入的的变量存在 **声明提升**
 
 ```js
 // a.js
@@ -183,26 +188,18 @@ console.log(message); // Hello from Module 1
 ## 总结
 其实我们只需要掌握CommonJS和ES6 Module两种规范即可，因为它们是目前最主流的两种模块化方案。
 
-### CommonJS 和 ES6 Module 的区别
-1. 使用方式：CommonJS 使用 require 和 module.exports，ES6 Module 使用 import 和 export。
+### 区别
 
-3. 加载方式：CommonJS 是同步加载，ES6 Module 是异步加载。
-4. 输出方式：CommonJS 输出的是值的拷贝，ES6 Module 输出的是值的引用。
-5. 运行时机：CommonJS 运行时加载，ES6 Module 编译时解析。
-6. 运行环境：CommonJS 主要用于 Node.js 环境，ES6 Module 主要用于浏览器环境。
 
-以下是 CommonJS 和 ES6 Module 区别的表格：
-
-| **区别**          | **CommonJS**                      | **ES6 Module**                    |
-|-------------------|-----------------------------------|-----------------------------------|
-| **使用方式**      | `require` 和 `module.exports`     | `import` 和 `export`              |
-| **加载方式**      | 同步加载                          | 异步加载                          |
-| **输出方式**      | 输出的是值的拷贝                  | 输出的是值的引用                  |
-| **运行时机**      | 运行时加载                        | 编译时解析                        |
-| **运行环境**      | 主要用于 Node.js 环境              | 主要用于浏览器环境（也支持 Node.js） |
-| **循环依赖**      | 可以处理循环依赖                  | 可以处理循环依赖                  |
-| **动态加载**      | 不支持动态加载                    | 支持 `import()` 动态加载          |
-
+区别   | CommonJS                 | AMD            | CMD                             | UMD               | ES Module           |
+| ---- | ------------------------ | -------------- | ------------------------------- | ----------------- | ------------------- |
+| 规范实现 | Nodejs（社区）               | RequireJs（社区）  | SeaJs（社区）                       | 社区                | ECMAScript(官方）      |
+| 运行环境 | 服务器                      | 浏览器            | 浏览器                             | 浏览器、服务器           | 浏览器、服务器（node6.10.3） |
+| 加载方式 | 同步（运行时）                  | 异步加载           | 异步加载                            | 同、异步              | 异步（编译时）             |
+| 导入导出 | module.export={}\require | define\require | define\seajs.use(module,(m)={}) | AMD、CommonJs、全局变量 | export\import       |
+| 导出值  | 值的浅拷贝(副本）                | 值的浅拷贝          | 值的浅拷贝                           | 值的浅拷贝、引用          | 引用                  |
+| 依赖   | 同步加载依赖                   | 依赖前置（2.0 依赖延迟） | 依赖就近                            | 整合                | 动态加载依赖              |
+| 出现   | 2009年                    | 2010年          | 2011年                           | 2012年             | 2015年
 ### CommonJS中循环依赖
 ```js
 // a.js
@@ -233,7 +230,7 @@ require('./b.js');
 // b文件内访问a:  {}
 // a文件内访问b:  [Function: bar]
 ```
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/1a8f8af4272042489c490e73c4480234~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1724057615&x-orig-sign=Glpd7ycfRB9NaEMJH73UOD1T4U0%3D)
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/1a8f8af4272042489c490e73c4480234~tplv-73owjymdk6-jj-mark:0:0:0:0:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMjAzMjM0NDc0NDg1NzEyNyJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1724638316&x-orig-sign=uTUW%2Bn7zJpWBVvFPsfmVMPi2qXc%3D)
 
 结果解析：
 - 先引入的a.js, 在a.js中引用了b.js，此时b.js还未执行，所以b.js中的a是空对象
@@ -285,7 +282,7 @@ export default {
 ```
 完结撒花🎃，工程中尽量避免循环引用问题。。。。
 ## 源码
-[小易](https://github.com/xiaoyi1255/xiaoyi1255.github.io/tree/master/docs/guide/module)
+[xiaoyi1255](https://github.com/xiaoyi1255/xiaoyi1255.github.io/tree/master/docs/guide/module)
 ## 结语：
 如果本文对你有收获，麻烦动动发财的小手，点点关注、点点赞！！！👻👻👻
 
