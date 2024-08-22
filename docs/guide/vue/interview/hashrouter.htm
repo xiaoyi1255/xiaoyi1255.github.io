@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hash</title>
+</head>
+<body>
+    <a href="#/home">Home</a>
+    <br>
+    <a href="#/about">About</a>
+    <br>
+  <div id="app">Home Page</div>
+  <script>
+    const app = document.getElementById('app')
+
+    const router = {
+      mode: 'hsash',
+      routes: [
+        { path: '/home', component: 'Home Page' },
+        { path: '/about', component: 'About Page' },
+      ]
+    }
+
+    window.addEventListener('hashchange', (event) => {
+      const path = location.hash.slice(1)
+      const route = router.routes.find(r => r.path === path)
+      if (route) {
+        app.innerHTML = route.component
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XSS</title>
+</head>
+
+<body>
+  <input type="text" id="input">
+  <br>
+  <div>输入内容
+    <h1 id="output"></h1>
+  </div>
+
+  <script>
+    const input = document.getElementById('input')
+    input.addEventListener('input', function (e) {
+      const value = e.target.value
+      const outeput = document.getElementById('output');
+      // outeput.innerHTML = value
+      const queryString = window.location.search; // 获取查询字符串，如 "?name=John&age=30"
+      const params = new URLSearchParams(queryString);
+      const a = params.get('a'); // 获取名为 "name" 的参数值
+      outeput.innerHTML = a
+    })
+  </script>
+
+  <script>
+    const p1 = () => (new Promise((resolve, reject) => {
+      console.log(1);
+      let p2 = new Promise((resolve, reject) => {
+        console.log(2);
+        const timeOut1 = setTimeout(() => {
+          console.log(3);
+          // resolve(4);
+        }, 0)
+        resolve(5);
+      });
+      resolve(6);
+      p2.then((arg) => {
+        console.log(arg);
+      });
+    }));
+
+    const timeOut2 = setTimeout(() => {
+      console.log(8);
+      const p3 = new Promise(reject => {
+        reject(9);
+      }).then(res => {
+        console.log(res)
+      })
+    }, 0)
+
+
+    p1().then((arg) => {
+      console.log(arg);
+    });
+    console.log(10);
+
+    /**
+     * 主：
+     * 宏：timeOut2 timeOUt1
+     * 微：
+     * 打印：1 2 10 5 6 8 9 3
+    */
+
+  </script>
+</body>
+
+</html>

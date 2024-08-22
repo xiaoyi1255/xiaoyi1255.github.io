@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History</title>
+</head>
+<body>
+    <button  onclick="goPage('home')">Home</button>
+    <br>
+    <button onclick="goPage('about')">About</button>
+    <br>
+  <div id="app">Home Page</div>
+  <script>
+    const app = document.getElementById('app')
+
+    const router = {
+      mode: 'hsash',
+      routes: [
+        { path: '/home', name: 'home', component: 'Home Page' },
+        { path: '/about',   name: 'about', component: 'About Page' },
+      ]
+    }
+
+    function goPage(path) {
+      history.pushState(null, '', path)
+      const route = router.routes.find(r => r.path === path)
+      if (route) {
+        app.innerHTML = route.component
+      }
+      // 阻止浏览器默认行为
+      event.preventDefault()
+    }
+    // 监听 popstate 事件
+    // window.addEventListener('popstate', (event) => {
+    //   // 阻止浏览器默认行为
+    //   event.preventDefault()
+    // })
+  </script>
+</body>
+</html>

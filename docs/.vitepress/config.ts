@@ -93,6 +93,7 @@ function sidebarGuide() {
       collapsed: true, // true:目录自动展开 [pc端生效]
       items: [
         { text: 'Vue全局错误处理', link: '/guide/project/vue' },
+        { text: '2024前端面试题汇总之vue(基础篇)', link: '/guide/vue/interview/vue' },
       ]
     },
     {
@@ -104,6 +105,9 @@ function sidebarGuide() {
         { text: 'web worker', link: '/guide/js/worker/worker.md' },
         { text: 'axios 取消重复请求', link: '/guide/network/axios.md' },
         { text: '接口数据缓存', link: '/guide/network/dataCache.md' },
+        { text: '输入URL到页面渲染流程', link: '/guide/network/输入URL到页面渲染流程' },
+        { text: '前端网络安全', link: '/guide/network/前端网络安全.md' },
+
       ]
     },
     {
