@@ -94,6 +94,7 @@ function sidebarGuide() {
       items: [
         { text: 'Vue全局错误处理', link: '/guide/project/vue' },
         { text: '2024前端面试题汇总之vue(基础篇)', link: '/guide/vue/interview/vue' },
+        { text: 'Vue2响应式', link: '/guide/vue/interview/vue2响应式/vue2' },
       ]
     },
     {
