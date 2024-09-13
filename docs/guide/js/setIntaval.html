@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+<script>
+function _setIntaval(allTime) {
+  let endTime = performance.now() + allTime * 1000
+  let nextTime = 1000
+  let diff
+  const fn = (allTime) => { 
+    const nowTime = Date.now()
+    setTimeout(() => {
+      diff = (endTime - performance.now()) / 1000
+      if (diff <= 0) return
+      console.log(diff.toFixed(0))
+      nextTime = 1000 - (Date.now() - nowTime - 1000)
+      fn(--diff)
+    }, nextTime)
+  }
+  fn(allTime)
+}
+_setIntaval(100)
+</script>

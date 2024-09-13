@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="connectButton">connectButton</button>
+
+</body>
+</html>
+
+<script type="module">
+
+// 检查浏览器是否支持 Web Bluetooth API
+if (navigator.bluetooth) {
+  // 按钮点击事件，用于启动蓝牙连接
+  document.getElementById("connectButton").addEventListener("click", () => {
+    // 请求连接的设备的过滤条件，例如只连接具有特定服务的设备
+    navigator.bluetooth.requestDevice({
+      acceptAllDevices: true, // 允许连接所有可用设备，或者你可以使用 filters 来筛选特定设备
+      // optionalServices: ['battery_service'] // 可选的服务 UUID
+    })
+    .then(device => {
+      console.log("设备已选择:", device.name);
+      // 连接设备的 GATT（通用属性配置文件）
+      return device.gatt.connect();
+    })
+    .then(server => {
+      console.log("已连接 GATT 服务器");
+      // 获取特定服务，如电池服务
+      return server.getPrimaryService('battery_service');
+    })
+    .then(service => {
+      console.log("已获取电池服务");
+      // 获取特定特征值（characteristic），例如电池电量
+      return service.getCharacteristic('battery_level');
+    })
+    .then(characteristic => {
+      // 读取特征值
+      return characteristic.readValue();
+    })
+    .then(value => {
+      // 获取电池电量的值
+      let batteryLevel = value.getUint8(0);
+      console.log(`电池电量为: ${batteryLevel}%`);
+    })
+    .catch(error => {
+      console.log("连接或读取失败:", error);
+    });
+  });
+} else {
+  console.log("该浏览器不支持 Web Bluetooth API");
+}
+
+
+</script>
