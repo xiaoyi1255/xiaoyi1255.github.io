@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    canvas {
+      border: 1px solid #ad1717;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="600" height="400"></canvas>
+  <input type="color" id="color" value="#000000">
+  <button id="eraser">橡皮擦</button>
+  <button id="clear">清空</button>
+  <button id="thin" >变细</button>
+  <button id="thick">变粗</button>
+  <button id="save">保存</button>
+  <button id="pre">撤销</button>
+  <button id="next">下一步</button>
+
+
+
+</body>
+
+</html>
+
+
+  <script type="module">
+    import {CanvasSign} from './js/CanvasSign.mjs'
+    const canvas = document.getElementById('canvas')
+    const color = document.getElementById('color')
+    const eraser = document.getElementById('eraser')
+    const clear = document.getElementById('clear')
+    const thin = document.getElementById('thin')
+    const thick = document.getElementById('thick')
+    const save = document.getElementById('save')
+    const pre = document.getElementById('pre')
+    const next = document.getElementById('next')
+
+    const ctx = canvas.getContext('2d')
+
+    // const ctx = new fabric.Canvas('canvas')
+
+    pre.onclick = () => {
+      sign.undo()
+    }
+    next.onclick = () => {
+      sign.redo()
+    }
+
+    color.onchange = (e) => {
+      sign.setColor(e.target.value)
+    }
+    eraser.onclick = () => {
+      // 
+      sign.eraser()
+    }
+    clear.onclick = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+    }
+    thin.onclick = () => {
+      sign.setLineWidth(1)
+    }
+    thick.onclick = () => {
+      sign.setLineWidth(20)
+    }
+    save.onclick = () => {
+      sign.save()
+    }
+
+    const sign = new CanvasSign(ctx)
+    window.sign = sign
+    console.log(sign)
+    canvas.onmousedown = (e) => {
+      sign.onMouseDown(e)
+      canvas.onmousemove = (e) => {
+        sign.onMouseMove(e)
+      }
+    }
+    canvas.onmouseup = (e) => {
+      sign.onMouseUp(e)
+    }
+    canvas.onmouseout = (e) => {
+      // sign.onMouseOut(e)
+    }
+
+  </script>
+</body>
+
+</html>

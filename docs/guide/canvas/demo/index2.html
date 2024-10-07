@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    canvas {
+      border: 1px solid #ad1717;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="600" height="400"></canvas>
+  <input type="color" id="color" value="#000000">
+  <button id="eraser">橡皮擦</button>
+  <button id="clear">清空</button>
+  <button id="thin">变细</button>
+  <button id="thick">变粗</button>
+  <button id="save">保存</button>
+  <button id="pre">撤销</button>
+  <button id="next">下一步</button>
+
+
+
+</body>
+
+</html>
+
+
+<script type="module">
+  import { CanvasSign } from './js/CanvasSign.mjs'
+  const canvas1 = document.getElementById('canvas')
+  const color = document.getElementById('color')
+  const eraser = document.getElementById('eraser')
+  const clear = document.getElementById('clear')
+  const thin = document.getElementById('thin')
+  const thick = document.getElementById('thick')
+  const save = document.getElementById('save')
+  const pre = document.getElementById('pre')
+  const next = document.getElementById('next')
+
+  const ctx = canvas1.getContext('2d')
+
+  const canvas = new fabric.Canvas('canvas')
+  canvas.isDrawingMode = true;
+  canvas.freeDrawingBrush.color = "blue";
+  canvas.freeDrawingBrush.width = 5;
+  let rect = new fabric.Rect({
+    left: 200, //距离左边的距离
+    top: 200, //距离上边的距离
+    fill: "green", //填充的颜色
+    width: 200, //矩形宽度
+    height: 200, //矩形高度
+  });
+
+  canvas.add(rect);
+
+  //通过url绘制图片
+  fabric.Image.fromURL(
+    //本地图片需要通过require来引入,require("./xxx.jpeg")
+    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.thaihot.com.cn%2Fuploadimg%2Fico%2F2021%2F0711%2F1625982535739193.jpg&refer=http%3A%2F%2Fimg.thaihot.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630940858&t=e1d24ff0a7eaeea2ff89cedf656a9374",
+    (img) => {
+      img.scale(0.5);
+      canvas.add(img);
+    }
+  );
+
+  pre.onclick = () => {
+    sign.undo()
+  }
+  next.onclick = () => {
+    sign.redo()
+  }
+
+  color.onchange = (e) => {
+    sign.setColor(e.target.value)
+  }
+  eraser.onclick = () => {
+    // 
+    sign.eraser()
+  }
+  clear.onclick = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  }
+  thin.onclick = () => {
+    sign.setLineWidth(1)
+  }
+  thick.onclick = () => {
+    sign.setLineWidth(20)
+  }
+  save.onclick = () => {
+    // sign.save()
+    canvas.toDataURL("image/png", (data) => {
+      const a = document.createElement("a")
+      a.href = data
+      a.download = "签名照.png"
+      a.click()
+    })
+
+  }
+
+  const sign = new CanvasSign(ctx)
+  window.sign = sign
+  console.log(sign)
+  canvas.onmousedown = (e) => {
+    sign.onMouseDown(e)
+    canvas.onmousemove = (e) => {
+      sign.onMouseMove(e)
+    }
+  }
+  canvas.onmouseup = (e) => {
+    sign.onMouseUp(e)
+  }
+  canvas.onmouseout = (e) => {
+    // sign.onMouseOut(e)
+  }
+
+
+
+</script>
+</body>
+
+</html>
