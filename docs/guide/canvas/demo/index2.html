@@ -11,7 +11,6 @@
       padding: 0;
       margin: 0;
     }
-
     canvas {
       border: 1px solid #ad1717;
       display: block;
@@ -21,18 +20,18 @@
 </head>
 
 <body>
-  <canvas id="canvas" width="600" height="400"></canvas>
-  <input type="color" id="color" value="#000000">
-  <button id="eraser">橡皮擦</button>
-  <button id="clear">清空</button>
-  <button id="thin">变细</button>
-  <button id="thick">变粗</button>
-  <button id="save">保存</button>
-  <button id="pre">撤销</button>
-  <button id="next">下一步</button>
+  <div>
+    <input type="color" id="color" value="#000000">
+    <button id="eraser">橡皮擦</button>
+    <button id="clear">清空</button>
+    <button id="thin">变细</button>
+    <button id="thick">变粗</button>
+    <button id="save">保存</button>
+    <button id="pre">撤销</button>
+    <button id="next">下一步</button>
 
-
-
+  </div>
+  <canvas id="canvas" width="800" height="600"></canvas>
 </body>
 
 </html>
@@ -40,6 +39,9 @@
 
 <script type="module">
   import { CanvasSign } from './js/CanvasSign.mjs'
+  // import img from './img/rmbg.png'
+  // import imgBg from './img/rm.jpeg'
+
   const canvas1 = document.getElementById('canvas')
   const color = document.getElementById('color')
   const eraser = document.getElementById('eraser')
@@ -67,12 +69,33 @@
   canvas.add(rect);
 
   //通过url绘制图片
-  fabric.Image.fromURL(
-    //本地图片需要通过require来引入,require("./xxx.jpeg")
-    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.thaihot.com.cn%2Fuploadimg%2Fico%2F2021%2F0711%2F1625982535739193.jpg&refer=http%3A%2F%2Fimg.thaihot.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630940858&t=e1d24ff0a7eaeea2ff89cedf656a9374",
+  const imgBg = new URL("./img/rm.jpeg", import.meta.url).href
+  const img = new URL("./img/rmbg.png", import.meta.url).href
+  fabric.Image.fromURL(imgBg,
     (img) => {
+      img.set({
+        evented: false, // Ignores all events (so erasing won't affect it)
+        selectable: false, // Cannot be selected
+        hasControls: false, // Disable control points
+        erasable: false
+      })
       img.scale(0.5);
       canvas.add(img);
+    }
+  );
+
+  fabric.Image.fromURL(img,
+    (img) => {
+      img.set({
+        evented: false, // Ignores all events (so erasing won't affect it)
+        selectable: true, // Cannot be selected
+        hasControls: false, // Disable control points
+        erasable: true,
+        right: 0
+      })
+      img.scale(0.5);
+      canvas.add(img);
+      canvas.renderAll()
     }
   );
 
