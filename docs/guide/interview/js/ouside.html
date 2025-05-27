@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" style="width: 200px; height: 200px; background-color: beige; visibility: hidden;">
+  </div>
+  <script>
+    const app = document.getElementById('app');
+    document.addEventListener('click', (e) => {
+      if (e.target !== app) {
+        console.log('doutside');
+      }
+    })
+    app.addEventListener('click', (e) => {
+      console.log('app click', e.target === app);
+    })
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 三角形</title>
+  <style>
+    /* 基础三角形样式 */
+    .triangle-examples {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    /* 三角形实现原理 */
+    [class^="triangle-"] {
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
+    /* 向上三角形 */
+    .triangle-up {
+      border-width: 0 50px 50px 50px;
+      border-color: transparent transparent #2ecc71 transparent;
+    }
+
+    /* 向下三角形 */
+    .triangle-down {
+      border-width: 50px 50px 0 50px;
+      border-color: #3498db transparent transparent transparent;
+    }
+
+    /* 向左三角形 */
+    .triangle-left {
+      border-width: 50px 50px 50px 0;
+      border-color: transparent #9b59b6 transparent transparent;
+    }
+
+    /* 向右三角形 */
+    .triangle-right {
+      border-width: 50px 0 50px 50px;
+      border-color: transparent transparent transparent #e74c3c;
+    }
+
+    /* 彩色斜角三角形 */
+    .colored-triangles {
+      margin-top: 150px;
+      display: flex;
+      gap: 20px;
+    }
+
+    /* 左上三角形 */
+    .triangle-topleft {
+      border-width: 100px 100px 0 0;
+      border-color: #1abc9c transparent transparent transparent;
+    }
+
+    /* 右上三角形 */
+    .triangle-topright {
+      border-width: 0 100px 100px 0;
+      border-color: transparent #f1c40f transparent transparent;
+    }
+
+    /* 左下三角形 */
+    .triangle-bottomleft {
+      border-width: 100px 0 0 100px;
+      border-color: transparent transparent transparent #e67e22;
+    }
+
+    /* 右下三角形 */
+    .triangle-bottomright {
+      border-width: 0 0 100px 100px;
+      border-color: transparent transparent #34495e transparent;
+    }
+
+    /* 气泡对话框示例 */
+    .bubble {
+      position: relative;
+      width: 200px;
+      padding: 20px;
+      background: #3498db;
+      color: white;
+      border-radius: 10px;
+      margin-top: 50px;
+    }
+
+    .bubble-pointer {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 20px 20px 0 0;
+      border-color: #3498db transparent transparent transparent;
+      bottom: -20px;
+      left: 20px;
+    }
+
+    /* 容器样式 */
+    .triangle-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="triangle-container">
+    <h2>CSS 绘制三角形</h2>
+
+    <div class="triangle-examples">
+      <div class="triangle-up"></div>
+      <div class="triangle-down"></div>
+      <div class="triangle-left"></div>
+      <div class="triangle-right"></div>
+    </div>
+
+    <div class="colored-triangles">
+      <div class="triangle-topleft"></div>
+      <div class="triangle-topright"></div>
+      <div class="triangle-bottomleft"></div>
+      <div class="triangle-bottomright"></div>
+    </div>
+  </div>
+
+  <!-- 对话框示例 -->
+  <div class="bubble">这是一个对话框气泡
+    <div class="bubble-pointer"></div>
+  </div>
+</body>
+
+</html>

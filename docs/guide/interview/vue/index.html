@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Vue2 App</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{ message }} -- {{ obj.name }} -- {{ obj.gender }} -- {{ obj.age }}
+    <button @click="changeAge">设置年龄</button>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!',
+        obj: {
+          name: '小易',
+          gender: '男'
+        }
+      },
+      methods: {
+        changeAge() {
+          console.log(this.obj.age);
+          // this.$set(this.obj, 'age', 18);
+          // Vue.set(this.obj, 'age', 18);
+          // this.obj.age = 18;
+          // this.$forceUpdate();
+          // this.obj = Object.assign({}, this.obj, { age: 18 });
+          this.obj = {...this.obj, age: 18 };
+
+        }
+        }
+    })
+  </script>
+</body>
+</html>
