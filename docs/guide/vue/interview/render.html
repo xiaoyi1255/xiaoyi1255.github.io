@@ -1,0 +1,126 @@
+<!--
+ * @Author: 静ming 
+ * @Date: 2025-06-26 22:20:17
+ * @LastEditors: 静ming
+ * @LastEditTime: 2025-06-26 22:41:33
+ * @FilePath: \xiaoyi1255.github.io\docs\guide\vue\interview\render.html
+ * @Description: 
+ * 
+ * Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+<script>
+const render = function (vnode, container) {
+  const { tag, props, children } = vnode
+  // 创建元素
+  const el = document.createElement(tag)
+  // 处理属性
+ if (props) {
+    for (const key in props) {
+      // 处理事件
+      if (key.startsWith('on')) {
+        el.addEventListener(key.slice(2).toLowerCase(), props[key])
+      } else {
+        el.setAttribute(key, props[key])
+      }
+    }
+  }
+  // 处理子节点
+  if (typeof children === 'string') {
+    el.textContent = children
+  } else if (Array.isArray(children)) {
+    children.forEach(child => render(child, el))
+  }
+  // 将元素添加到容器中
+  container.appendChild(el)
+}
+
+
+const vnode = {
+  tag: 'div',
+  props: {
+    id: 'app',
+    onClick: () => alert('hello')
+  },
+  children: [
+    {
+      tag: 'span',
+      children: 'hello world'
+    }
+  ]
+}
+render(vnode, document.body)
+</script>
+<script type="module">
+
+// render 进一步封装
+function Render(vnode, container) {
+  const { tag, props, children, render } = vnode
+  // 创建元素
+  if (typeof render === 'function') {
+    muntComponent(Component, container)
+  } else {
+    muntElement(vnode, container)
+  }
+}
+
+function muntElement(vnode, container) {
+  const { tag, props, children } = vnode
+  // 创建元素
+  const el = document.createElement(tag)
+  // 处理属性
+ if (props) {
+    for (const key in props) {
+      // 处理事件
+      if (key.startsWith('on')) {
+        el.addEventListener(key.slice(2).toLowerCase(), props[key])
+      } else {
+        el.setAttribute(key, props[key])
+      }
+    }
+  }
+  // 处理子节点
+  if (typeof children === 'string') {
+    el.textContent = children
+  } else if (Array.isArray(children)) {
+    children.forEach(child => muntElement(child, el))
+  }
+  // 将元素添加到容器中
+  container.appendChild(el)
+}
+
+// 挂载组件
+function muntComponent(vnode, container) {
+  const subTree = vnode.render()
+  muntElement(subTree, container)
+}
+const Component = {
+  render() {
+    return {
+      tag: 'div',
+      props: {
+        id: 'app1',
+        onClick: () => alert('hello')
+      },
+      children: [
+        {
+          tag: 'span',
+          children: 'hello world'
+        }
+      ]
+    }
+  }
+}
+Render(vnode, document.body)
+</script>
