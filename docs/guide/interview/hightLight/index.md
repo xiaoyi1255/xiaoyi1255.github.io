@@ -2,14 +2,14 @@
  * @Author: taijingming 
  * @Date: 2026-07-13 10:22:23
  * @LastEditors: taijingming
- * @LastEditTime: 2026-07-13 16:55:37
+ * @LastEditTime: 2026-07-15 18:56:26
  * @FilePath: /xiaoyi1255.github.io/docs/guide/interview/hightLight/index.md
  * @Description: 
  * 
  * Copyright (c) 2026 by ${git_name_email}, All Rights Reserved. 
 -->
 
-
+ 
 ## 构建优化
 1. h5:打包时，过期页面剔除（8分钟 => 3分钟）
 2. webpack 构建后台项目实际过长 => 使用vite来构建
@@ -35,6 +35,7 @@
 5. 发送url、复制url、发送ua、刷新页面 等常规h5操作工具集封装
 6. 任意门：提升本地调试效率 => 启动项目 => 获取ip => 通过websocket => 实现信息共享
 7. api 生成 -> 配置关键词 => 调用swagger => 生成api.js
+8. 三方插件 => h5 页面上 快捷键 直接定位到对应 代码位置
 
 
 
